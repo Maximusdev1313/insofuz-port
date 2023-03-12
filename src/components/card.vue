@@ -14,36 +14,36 @@ let slide = ref(1)
 <template>
   <div class="container">
     <div class="wrapper row justify-around items-left wrap">
-      <div class="card shadow-up-5 q-ma-md column justify-center items-center" v-for="(card,index) in products" :key="index">
+      <div class="card shadow-up-5 q-ma-md column justify-center items-center" v-for="(product,index) in products" :key="index">
         <div
           class="discount "
           
         >
-        <div v-if="card.chegirma_foizi" class="row justify-between items-center q-mt-sm  text-red text-weight-bold">
+        <div v-if="product.chegirma_foizi" class="row justify-between items-center q-mt-sm  text-red text-weight-bold">
           <div class="discount__title">Discount</div>
-          <div class="discount__percent">{{ card.chegirma_foizi }} %</div>
+          <div class="discount__percent">{{ product.chegirma_foizi }} %</div>
         </div>
           
         </div>
         <div class="card__img row justify-center" >
           <router-link to="/">
-            <img :src="card.rasmlari[0].link " :alt="card.rasmlari[0].title" v-if="card.rasmlari[0].link">            
+            <img :src="product.rasmlari[0].link " :alt="product.rasmlari[0].title" v-if="product.rasmlari[0].link">            
 
           </router-link>
           <!-- <div class="card__img_have-not"></div> -->
         </div>
-        <div class="card__title text-h6 text-weight-bold text-uppercase text-grey">{{ card.nomi }}</div>
+        <div class="card__title text-h6 text-weight-bold text-uppercase text-grey">{{ product.nomi }}</div>
         <div class="card__price row justify-between text-weight-bold">
-          <div class="card__price_old text-grey" > <del v-if="card.eski_narx">{{ card.eski_narx }} so'm</del> </div>
-          <div class="card__price_new text-red">{{card.narx}} so'm</div>
+          <div class="card__price_old text-grey" > <del v-if="product.eski_narx">{{ product.eski_narx }} so'm</del> </div>
+          <div class="card__price_new text-red">{{product.narx}} so'm</div>
         </div>
         <div class="counter row justify-between items-center q-mt-md">
           <div>
-            Soni: {{ card.soni }}
+            Soni: {{ product.soni }}
 
           </div>
           <q-btn-group rounded class="button-group" >
-            <q-btn rounded size="sm" label="+"  @click="store.incrementAmount(card)"/>
+            <q-btn rounded size="sm" label="+"  @click="store.incrementAmount(product)"/>
             <q-btn rounded size="sm" label="-"  />
           </q-btn-group>
         </div>
@@ -54,7 +54,7 @@ let slide = ref(1)
               class="full-width q-my-md"
               icon="shopping_cart"
               color="accent"
-              @click="store.addPurchasedProducts(card, store.incrementAmount(card))">
+              @click="store.addPurchasedProducts(product, store.incrementAmount(product))">
                 <q-tooltip class="bg-accent">Buy</q-tooltip>
                 Buy now
             </q-btn>
