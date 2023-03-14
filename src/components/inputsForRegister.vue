@@ -12,7 +12,6 @@ let products = store.purchasedProducts
 let specialId = Date.now() + Math.floor(Math.random() * 10000)
 console.log(specialId);
 let notChecked = ref(false)
-
 const addProducts = async () => {
   if(store.userId){
     try{

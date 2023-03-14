@@ -25,7 +25,7 @@ export const useApiStore = defineStore('store',{
         let simpleCategory = apiData.data
         console.log(simpleCategory);
         this.products = [...simpleCategory.mahsulot]
-        let time = Date.now()
+   
         
       } catch (error) {
           // location.reload()
