@@ -27,7 +27,7 @@ let slide = ref(1)
         </div>
         <div class="card__img row justify-center" >
           <router-link to="/">
-            <img :src="product.rasmlari[0].link " :alt="product.rasmlari[0].title" v-if="product.rasmlari[0].link">            
+            <img :src="product.rasmlari[0]?.link " :alt="product.rasmlari[0].title" v-if="product.rasmlari.length">            
 
           </router-link>
           <!-- <div class="card__img_have-not"></div> -->
@@ -37,28 +37,34 @@ let slide = ref(1)
           <div class="card__price_old text-grey" > <del v-if="product.eski_narx">{{ product.eski_narx }} so'm</del> </div>
           <div class="card__price_new text-red">{{product.narx}} so'm</div>
         </div>
-        <div class="counter row justify-between items-center q-mt-md">
-          <div>
+        <div class="counter row justify-between items-center " v-if="product.soni">
+          <div >
             Soni: {{ product.soni }}
 
           </div>
           <q-btn-group rounded class="button-group" >
             <q-btn rounded size="sm" label="+"  @click="store.incrementAmount(product)"/>
-            <q-btn rounded size="sm" label="-"  />
+            <q-btn rounded size="sm" label="-" @click="store.decrementAmount(product)" v-if="product.soni > 1"/>
+            
+            <q-btn label="-" rounded size="sm" disable v-else/>
           </q-btn-group>
+        </div>
+        <div class="counter text-center text-grey" v-else>
+          Buyurtma berilmagan...
         </div>
         
 
         <div class="card__button " >
             <q-btn
-              class="full-width q-my-md"
+              class="card__button_add full-width q-my-md"
               icon="shopping_cart"
               color="accent"
               @click="store.addPurchasedProducts(product, store.incrementAmount(product))">
                 <q-tooltip class="bg-accent">Buy</q-tooltip>
                 Buy now
             </q-btn>
-        </div>
+           
+          </div>
       </div>
     </div>
   </div>
@@ -98,5 +104,7 @@ img, .card__img{
 }
 .counter{
   width: 90%;
+  height: 26px;
+  margin-top: 16px;
 }
 </style>

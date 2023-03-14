@@ -15,7 +15,7 @@
           Quasar App
         </q-toolbar-title>
 
-        <q-btn icon="shopping_cart" outline to="/purchased">
+        <q-btn icon="shopping_cart"  outline to="/order" v-if="store.purchasedProducts.length"> 
           <q-badge color="red" floating>{{ store.purchasedProducts.length }}</q-badge>
           {{ store.amount }}
           </q-btn>

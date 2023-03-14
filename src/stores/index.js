@@ -22,24 +22,50 @@ export const useApiStore = defineStore('store',{
         let simpleCategory = apiData.data
         console.log(simpleCategory);
         this.products = [...simpleCategory.mahsulot]
-        console.log(this.products,'product');
+        let time = Date.now()
+        
       } catch (error) {
-          console.log(error.message);
+          // location.reload()
+          error
       }
     },
     addPurchasedProducts(el, increment){
       this.purchasedProducts.push(el)
       increment
       this.purchasedProducts = [...new Set(this.purchasedProducts)]
-
-      console.log(this.purchasedProducts, 'pur');
     },
+    deleteProduct(item,index){
+      let price = JSON.parse(item.narx)
+      let total = price * item.soni
+
+      if(this.amount > 0){
+        this.amount = this.amount - total
+        this.purchasedProducts.splice(index,1)
+      }
+      else{
+        return
+      }
+      
+      item.soni = 0
+    },
+     
+    
+    
     incrementAmount(item){
       let narx= JSON.parse(item.narx)
       this.amount += narx
       item.soni ++
-      // console.log(this.purchasedProducts, 'pruchas');
+      console.log(item.soni);
+      console.log(this.products, 'soni');
+      // localStorage.setItem('products', JSON.stringify( this.products))
     },  
+    decrementAmount(item){
+      let narx= JSON.parse(item.narx)
+      this.amount -= narx
+      item.soni --
+      
+
+    },
    
 
 
