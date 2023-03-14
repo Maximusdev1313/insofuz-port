@@ -6,12 +6,12 @@ import {useApiStore} from 'src/stores'
 const store = useApiStore()
 let alert = ref(false)
 onMounted(()=>{
-    // if(){
-    //     alert.value = true
-    //     setTimeout(() => {
-    //         location.replace('/')
-    //     }, 6000);
-    // }
+    if(!store.purchasedProducts.length){
+        alert.value = true
+        setTimeout(() => {
+            location.replace('/')
+        }, 6000);
+    }
 })
 </script>
 
@@ -33,7 +33,7 @@ onMounted(()=>{
       </q-card>
     </q-dialog>
         </div>
-        <div class="wrapper" >
+        <div class="wrapper" v-if="store.purchasedProducts.length">
             <inputs-for-register/>
             <purchased-products-list/>
         </div>
