@@ -5,7 +5,7 @@ const store = useApiStore();
 
 <template>
     <div class="list">
-      <div class="list__title">Mahsulotlar</div>
+      <div class="list__title">Buyurtmalar</div>
       <div class="list__item" v-for="(product, index) in store.purchasedProducts" :key="index">
         <div class="list__img row justify-center items-center">
           <img
