@@ -6,7 +6,7 @@ export const routes = [
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
       { path: 'order', component: () => import('pages/Order.vue') },
-
+      { path: '/user/:id/', name: 'user', component: () => import('pages/WaitRoom.vue') },
       { path: '/categoriya/:id/', component: () => import('pages/ProductsPage.vue') },
 
     ]

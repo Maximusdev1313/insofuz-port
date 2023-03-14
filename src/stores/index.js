@@ -7,7 +7,10 @@ export const useApiStore = defineStore('store',{
     products: [],
     purchasedProducts: [],
     amount: null,
-    count: null
+    count: null,
+    userId:null,
+    userPosition: '',
+    
 
   }),
   actions:{
@@ -29,6 +32,7 @@ export const useApiStore = defineStore('store',{
           error
       }
     },
+    
     addPurchasedProducts(el, increment){
       this.purchasedProducts.push(el)
       increment
@@ -66,6 +70,22 @@ export const useApiStore = defineStore('store',{
       
 
     },
+    getLocation(){
+      let location = null;
+      let latitude = null;
+      let longitude = null;
+      if(navigator.geolocation){
+          navigator.geolocation.getCurrentPosition(position =>{
+              location = position;
+              latitude = position.coords.latitude;
+              longitude = position.coords.longitude;
+              this.userPosition = latitude + "," + longitude
+          })      
+      }
+      else{
+          console.log('error');
+      }
+  }
    
 
 
