@@ -29,7 +29,7 @@ export const useApiStore = defineStore('store',{
         
       } catch (error) {
           // location.reload()
-          error
+          console.log(error);
       }
     },
     
