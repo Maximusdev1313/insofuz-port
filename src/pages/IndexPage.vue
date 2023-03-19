@@ -1,10 +1,20 @@
+<script setup>
+import carusel from 'src/components/forIndexPage/carusel.vue'
+import cards from 'src/components/forIndexPage/cards.vue';
+import {useApiStore} from 'src/stores'
+import { onMounted } from 'vue';
+const store = useApiStore()
+onMounted(()=>{
+  store.getCategory()
+})
+</script>
+
 <template>
-  <q-page >
-    <card/>
-    index
+  <q-page>
+    <div>
+      <carusel/>
+      <cards :category="store.limitedCategory" :title="'Kategoriyalar'"/>
+      
+    </div>
   </q-page>
 </template>
-
-<script setup>
-import card from 'src/components/card.vue'
-</script>
