@@ -5,10 +5,8 @@ import {useRoute} from 'vue-router'
 import {ref, onMounted,watch} from 'vue'
 import {useApiStore} from 'src/stores'
 import card from 'src/components/card.vue'
-import axios from 'axios'
 let store = useApiStore()
 let route = useRoute()
-let list = ref([])
 onMounted(()=>{
     store.getProducts(route.params.id)
 })
