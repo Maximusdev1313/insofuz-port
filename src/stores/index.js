@@ -4,6 +4,7 @@ import axios from 'axios'
 export const useApiStore = defineStore('store',{
   state: ()=>({
     categories: [],
+    limitedCategory:[],
     products: [],
     purchasedProducts: [],
     amount: null,
@@ -17,6 +18,8 @@ export const useApiStore = defineStore('store',{
     async getCategory(){
       let apiData = await axios.get('http://insofuzlast.pythonanywhere.com/categoriya/')
       this.categories = apiData.data
+      this.limitedCategory = [...this.categories]
+      this.limitedCategory.length = 4
 
     },
     async getProducts(id){
