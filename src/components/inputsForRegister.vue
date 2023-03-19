@@ -77,7 +77,8 @@ let order = async ()=>{
     <q-input v-model="phoneNumber" label="Raqamingiz" />
     <q-input v-model="address" label="Manzilingiz" />
     <q-input type="textarea" v-model="comment" label="Kamentariy berish" />
-    <q-btn @click="order()" :color="notChecked == true ? 'red' : 'primary'">
+    <div class="q-my-md">
+      <q-btn @click="order()" :color="notChecked == true ? 'red' : 'primary'" icon="location_on" class="q-mr-md">
       locatsiya
       <q-tooltip class="bg-accent"
         >Iltimos locatsiyani olish tugmasini bosing</q-tooltip
@@ -89,6 +90,8 @@ let order = async ()=>{
       >
       Buyurtma Berish
     </q-btn>
+    </div>
+    
   </div>
 </template>
 
