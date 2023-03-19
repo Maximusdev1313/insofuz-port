@@ -35,7 +35,7 @@ onMounted(()=>{
         </div>
         <div class="wrapper" v-if="store.purchasedProducts.length">
             <inputs-for-register/>
-            <purchased-products-list />
+            <purchased-products-list class="q-my-md"/>
         </div>
    
 </template>
