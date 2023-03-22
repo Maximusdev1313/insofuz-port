@@ -32,7 +32,7 @@ let slide = ref(1)
           </router-link>
           <!-- <div class="card__img_have-not"></div> -->
         </div>
-        <div class="card__title text-h6 text-weight-bold text-uppercase text-grey">{{ product.nomi }}</div>
+        <div class="title text-weight-bold text-uppercase ">{{ product.nomi }}</div>
         <div class="card__price row justify-between text-weight-bold">
           <div class="card__price_old text-grey" > <del v-if="product.eski_narx">{{ product.eski_narx }} so'm</del> </div>
           <div class="card__price_new text-red">{{product.narx}} so'm</div>

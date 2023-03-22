@@ -5,7 +5,7 @@ const store = useApiStore();
 
 <template>
   <div class="list">
-    <div class="list__title">Buyurtmalar</div>
+    <div class="title">Buyurtmalar</div>
     <div
       class="list__item"
       v-for="(product, index) in store.purchasedProducts"
@@ -67,11 +67,7 @@ const store = useApiStore();
   width: 50px;
   height: 50px;
 }
-.list__title {
-  font-size: 20px;
-  font-weight: bold;
-  color: gray;
-}
+
 .list__item {
   display: flex;
   justify-content: space-between;

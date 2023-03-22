@@ -9,6 +9,7 @@ onMounted(()=>{
 <template>
     <div>
         <q-list padding>
+          <q-item-label header>Barcha mahsulotlar</q-item-label>
       <q-item
         clickable
         v-ripple
@@ -17,9 +18,9 @@ onMounted(()=>{
         :key="category"
         :to="'/categoriya/' + category.id"
       >
-        <q-item-section avatar>
+        <!-- <q-item-section avatar>
           <q-icon :name="category.icon" />
-        </q-item-section>
+        </q-item-section> -->
 
         <q-item-section>
           {{ category.categoriya_nomi }}
