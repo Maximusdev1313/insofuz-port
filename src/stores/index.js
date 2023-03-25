@@ -7,43 +7,59 @@ export const useApiStore = defineStore('store',{
     limitedCategory:[],
     products: [],
     purchasedProducts: [],
+    allProducts:[],
     amount: null,
     count: null,
     userId:null,
     userPosition: '',
-    
 
   }),
+  getters: {
+    
+  },
   actions:{
     async getCategory(){
-      let apiData = await axios.get('http://insofuzlast.pythonanywhere.com/categoriya/')
-      this.categories = apiData.data
+      let response = await axios.get('http://insofuzlast.pythonanywhere.com/category/')
+      this.categories = response.data
       this.limitedCategory = [...this.categories]
-      this.limitedCategory.length = 4
+      console.log(this.categories);
+      if(this.limitedCategory.length > 4){
+        this.limitedCategory.length = 4
+
+      }
 
     },
     async getProducts(id){
       try {
-        let apiData = await axios.get(`http://insofuzlast.pythonanywhere.com/categoriya/${id}/`)
-        let simpleCategory = apiData.data
-        console.log(simpleCategory);
-        this.products = [...simpleCategory.mahsulot]
-   
+        let response = await axios.get(`http://insofuzlast.pythonanywhere.com/category/${id}/`)
+        this.products = response.data.product
+        console.log(this.products);
         
       } catch (error) {
           // location.reload()
           console.log(error);
       }
     },
+    async getAllProducts() {
+      try {
+        let response = await axios.get(`http://insofuzlast.pythonanywhere.com/product/`)
+        this.allProducts = response.data
+        console.log(this.allProducts);
+      } catch (error) {
+        // location.reload()
+        console.log(error);
+      }
+    },
     
     addPurchasedProducts(el, increment){
+      
       this.purchasedProducts.push(el)
       increment
       this.purchasedProducts = [...new Set(this.purchasedProducts)]
     },
     deleteProduct(item,index){
-      let price = JSON.parse(item.narx)
-      let total = price * item.soni
+      let price = JSON.parse(item.price)
+      let total = price * item.quantity
 
       if(this.amount > 0){
         this.amount = this.amount - total
@@ -53,23 +69,23 @@ export const useApiStore = defineStore('store',{
         return
       }
       
-      item.soni = 0
+      item.quantity = 0
     },
      
     
     
     incrementAmount(item){
-      let narx= JSON.parse(item.narx)
-      this.amount += narx
-      item.soni ++
-      console.log(item.soni);
+      let price= JSON.parse(item.price)
+      this.amount += price
+      item.quantity ++
+      console.log(item.quantity);
       console.log(this.products, 'soni');
       // localStorage.setItem('products', JSON.stringify( this.products))
     },  
     decrementAmount(item){
-      let narx= JSON.parse(item.narx)
-      this.amount -= narx
-      item.soni --
+      let price= JSON.parse(item.price)
+      this.amount -= price
+      item.quantity --
       
 
     },
@@ -93,9 +109,7 @@ export const useApiStore = defineStore('store',{
 
 
   },
-  getters:{
-    
-  }
+  
 
 })
 /*

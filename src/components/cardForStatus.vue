@@ -1,21 +1,15 @@
 <script setup>
-import {toRefs} from 'vue'
-const props = defineProps({
-  statusTitle: String,
-  iconLink: String
- 
-});
-const { statusTitle } = toRefs(props);
+
 </script>
 
 <template>
     <div class="wrapper">
         <div class="card shadow-1">
       <div class="card__status text-subtitle2 q-ma-md">
-        {{statusTitle}}
+
       </div>
       <div class="card__image">
-        <img :src="iconLink" alt="" width="200" />
+        <img src="../assets/packing.gif" alt="sdlf;lksd" width="200" />
       </div>
       <div class="card__alert text-negative q-ma-md">
         Iltimos sahifani tark etmang!

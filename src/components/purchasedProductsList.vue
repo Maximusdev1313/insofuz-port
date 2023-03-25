@@ -13,26 +13,26 @@ const store = useApiStore();
     >
       <div class="list__img row justify-center items-center">
         <img
-          :src="product.rasmlari[0].link"
+          :src="product.images[0].image"
           alt=""
           width="50"
           height="50"
-          v-if="product.rasmlari.length"
+          v-if="product.images.length"
         />
         <q-icon name="image" size="xl" v-else></q-icon>
       </div>
 
-      <div class="list__label">{{ product.nomi }}</div>
+      <div class="list__label">{{ product.name }}</div>
       <div class="list__price">
-        <div class="list__price_discount text-red" v-if="product.eski_narx">
-          <del> {{ product.eski_narx }} So'm </del>
+        <div class="list__price_discount text-red" v-if="product.old_price">
+          <del> {{ product.old_price }} So'm </del>
         </div>
-        <div class="list__price_no-discount">{{ product.narx }} So'm</div>
+        <div class="list__price_no-discount">{{ product.price }} So'm</div>
       </div>
       <div
         class="list__quantity row justify-between items-center content-center wrap"
       >
-        <div class="item-count">{{ product.soni }} ta</div>
+        <div class="item-count">{{ product.quantity }} ta</div>
         <q-btn-group rounded class="button-group">
           <q-btn
             rounded
@@ -40,7 +40,7 @@ const store = useApiStore();
             label="+"
             @click="store.incrementAmount(product)"
           />
-          <q-btn label="-" rounded size="sm" disable v-if="product.soni == 1" />
+          <q-btn label="-" rounded size="sm" disable v-if="product.quantity == 1" />
 
           <q-btn
             rounded

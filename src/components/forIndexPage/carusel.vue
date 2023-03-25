@@ -1,5 +1,10 @@
 <script setup>
 import {ref} from 'vue'
+import {toRefs} from 'vue'
+
+const props = defineProps({
+  carusel: Array,});
+const { carusel } = toRefs(props);
 let slide = ref('first')
 let autoplay = ref(true)
 </script>
@@ -18,13 +23,13 @@ let autoplay = ref(true)
       v-model="slide"
       height="500px"
     >
-      <q-carousel-slide name="first" img-src="src/assets/commerce.png">
+      <q-carousel-slide :name="slide.name" :img-src="slide.image" v-for="slide in carusel" :key="slide">
         <div class="absolute-bottom custom-caption">
-          <div class="text-h2">First stop</div>
-          <div class="text-subtitle1">Mountains</div>
+          <div class="text-h2">{{ slide.title }}</div>
+          <div class="text-subtitle1">{{ slide.subtitle }}</div>
         </div>
       </q-carousel-slide>
-      <q-carousel-slide name="second" img-src="https://www.theasset.com/storage/Image/2021/May/161996875318980.jpg">
+      <!-- <q-carousel-slide name="second" img-src="https://www.theasset.com/storage/Image/2021/May/161996875318980.jpg">
         <div class="absolute-bottom custom-caption">
           <div class="text-h2">Second stop</div>
           <div class="text-subtitle1">Famous City</div>
@@ -35,7 +40,7 @@ let autoplay = ref(true)
           <div class="text-h2">Third stop</div>
           <div class="text-subtitle1">Famous Bridge</div>
         </div>
-      </q-carousel-slide>
+      </q-carousel-slide> -->
     </q-carousel>
   </div>
 </template>

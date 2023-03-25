@@ -10,11 +10,13 @@
           aria-label="Menu"
           @click="toggleLeftDrawer"
         />
-
-        <q-toolbar-title>
+        <router-link to="/" class="link">
+          <q-toolbar-title class="text-white" >
           Quasar App
         </q-toolbar-title>
-
+        </router-link>
+        
+        <q-space />
         <q-btn icon="shopping_cart"  outline to="/order" v-if="store.purchasedProducts.length"> 
           <q-badge color="red" floating>{{ store.purchasedProducts.length }}</q-badge>
           {{ store.amount }}
@@ -48,3 +50,9 @@ function toggleLeftDrawer () {
         leftDrawerOpen.value = !leftDrawerOpen.value
       }
 </script>
+
+<style scoped>
+.link{
+  text-decoration: none;
+}
+</style>

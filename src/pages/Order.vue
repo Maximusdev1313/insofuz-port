@@ -1,30 +1,37 @@
 <script setup>
-import purchasedProductsList from 'src/components/purchasedProductsList.vue';
-import inputsForRegister from 'src/components/inputsForRegister.vue';
-import { onMounted, ref } from 'vue';
-import {useApiStore} from 'src/stores'
-const store = useApiStore()
-let alert = ref(false)
-onMounted(()=>{
-    if(!store.purchasedProducts.length){
-        alert.value = true
-        setTimeout(() => {
-            location.replace('/')
-        }, 6000);
-    }
-})
+import purchasedProductsList from "src/components/purchasedProductsList.vue";
+import inputsForRegister from "src/components/inputsForRegister.vue";
+import { onMounted, ref } from "vue";
+import { useApiStore } from "src/stores";
+const store = useApiStore();
+let alert = ref(false);
+
+
+onMounted(() => {
+  if (!store.purchasedProducts.length) {
+    alert.value = true;
+    setTimeout(() => {
+      location.replace("/");
+    }, 6000);
+  }
+  
+  console.log(userId);
+});
 </script>
 
 <template>
-        <div >
-            <q-dialog v-model="alert">
+  <div>
+    <q-dialog v-model="alert">
       <q-card>
         <q-card-section>
           <div class="text-h6">Alert</div>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis perferendis totam, ea at omnis vel numquam exercitationem aut, natus minima, porro labore.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
+          repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis
+          perferendis totam, ea at omnis vel numquam exercitationem aut, natus
+          minima, porro labore.
         </q-card-section>
 
         <q-card-actions align="right">
@@ -32,16 +39,16 @@ onMounted(()=>{
         </q-card-actions>
       </q-card>
     </q-dialog>
-        </div>
-        <div class="wrapper" v-if="store.purchasedProducts.length">
-            <inputs-for-register/>
-            <purchased-products-list class="q-my-md"/>
-        </div>
-   
+    
+  </div>
+  <div class="wrapper" v-if="store.purchasedProducts.length">
+    <inputs-for-register />
+    <purchased-products-list class="q-my-md" />
+  </div>
 </template>
 <style scoped>
-.wrapper{
-    width: 90%;
-    margin: 0 auto;
+.wrapper {
+  width: 90%;
+  margin: 0 auto;
 }
 </style>

@@ -16,14 +16,14 @@ onMounted(()=>{
         :active="category.label"
         v-for="category in store.categories"
         :key="category"
-        :to="'/categoriya/' + category.id"
+        :to="'/category/' + category.id"
       >
         <!-- <q-item-section avatar>
           <q-icon :name="category.icon" />
         </q-item-section> -->
 
         <q-item-section>
-          {{ category.categoriya_nomi }}
+          {{ category.category_name }}
         </q-item-section>
       </q-item>
     </q-list>

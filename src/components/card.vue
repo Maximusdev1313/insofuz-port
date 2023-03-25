@@ -21,30 +21,30 @@ let slide = ref(1)
         >
         <div v-if="product.chegirma_foizi" class="row justify-between items-center q-mt-sm  text-red text-weight-bold">
           <div class="discount__title">Discount</div>
-          <div class="discount__percent">{{ product.chegirma_foizi }} %</div>
+          <div class="discount__percent">{{ product.discount }} %</div>
         </div>
           
         </div>
         <div class="card__img row justify-center" >
           <router-link to="/">
-            <img :src="product.rasmlari[0]?.link " :alt="product.rasmlari[0].title" v-if="product.rasmlari.length">            
+            <img :src="product.images[0]?.image " :alt="product.images[0].title" v-if="product.images.length">            
 
           </router-link>
           <!-- <div class="card__img_have-not"></div> -->
         </div>
-        <div class="title text-weight-bold text-uppercase ">{{ product.nomi }}</div>
+        <div class="title text-weight-bold text-uppercase ">{{ product.name }}</div>
         <div class="card__price row justify-between text-weight-bold">
-          <div class="card__price_old text-grey" > <del v-if="product.eski_narx">{{ product.eski_narx }} so'm</del> </div>
-          <div class="card__price_new text-red">{{product.narx}} so'm</div>
+          <div class="card__price_old text-grey" > <del v-if="product.eski_narx">{{ product.old_price }} so'm</del> </div>
+          <div class="card__price_new text-red">{{product.price}} so'm</div>
         </div>
-        <div class="counter row justify-between items-center " v-if="product.soni">
+        <div class="counter row justify-between items-center " v-if="product.quantity">
           <div >
-            Soni: {{ product.soni }}
+            Soni: {{ product.quantity }}
 
           </div>
           <q-btn-group rounded class="button-group" >
             <q-btn rounded size="sm" label="+"  @click="store.incrementAmount(product)"/>
-            <q-btn rounded size="sm" label="-" @click="store.decrementAmount(product)" v-if="product.soni > 1"/>
+            <q-btn rounded size="sm" label="-" @click="store.decrementAmount(product)" v-if="product.quantity > 1"/>
             
             <q-btn label="-" rounded size="sm" disable v-else/>
           </q-btn-group>

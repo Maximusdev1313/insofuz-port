@@ -48,8 +48,7 @@ onMounted(() => {
   <div class="wrapper">
     <div class="title text-grey text-weight-bold text-h6 text-center">Buyurtmangiz</div>
 
-    <card-for-status :status-title="'Qadoqlanmoqda'" :icon-link="'icons/packing.gif'" v-if="!status || status == 'packing'"/>
-    <card-for-status :status-title="'Yetkazib berilmoqda'" :icon-link="'icons/route.gif'" />
+    <card-for-status />
         <!-- <google-maps/> -->
     <div class="list ">
      <q-list padding bordered>
