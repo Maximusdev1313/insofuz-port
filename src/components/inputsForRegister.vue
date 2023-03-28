@@ -9,38 +9,11 @@ let phoneNumber = ref("");
 let address = ref("");
 let comment = ref("");
 let products = store.purchasedProducts;
+// generate special user-id
 let specialId = Date.now() + Math.floor(Math.random() * 10000);
 let notChecked = ref(false);
+// set user-id if not in localstorage
 store.userId = localStorage.getItem('userId')
-const addProducts = async () => {
-  if (store.userId) {
-    try {
-      for (let product of products) {
-        let total = product.price * product.quantity;
-        await fetch("http://insofuzlast.pythonanywhere.com/orders/", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            product_name: product.name,
-            quantity: product.quantity,
-            price: product.price,
-            total_price: total,
-            orderForUser: store.userId,
-          }),
-        });
-      }
-    } catch (err) {
-      console.log(err.massage);
-      addProducts();
-    }
-    router.push({ name: "user", params: { id: store.userId } });
-  } else {
-    notChecked.value = true;
-    console.log(store.userId);
-    console.log("true");
-  }
-};
-console.log(store.purchasedProducts);
 let order = async () => {
   if (!store.userId) {
     store.getLocation();
@@ -68,6 +41,38 @@ let order = async () => {
     }
   }
 };
+const addProducts = async () => {
+  if (store.userId) {
+    try {
+      for (let product of products) {
+        let total = product.price * product.quantity;
+        await fetch("http://insofuzlast.pythonanywhere.com/orders/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            product_name: product.name,
+            quantity: product.quantity,
+            size: product.size,
+            gender: product.gender,
+            price: product.price,
+            total_price: total,
+            orderForUser: store.userId,
+          }),
+        });
+      }
+    } catch (err) {
+      console.log(err.massage);
+      addProducts();
+    }
+    router.push({ name: "user", params: { id: store.userId } });
+  } else {
+    notChecked.value = true;
+    console.log(store.userId);
+    console.log("true");
+  }
+};
+console.log(store.purchasedProducts);
+
 </script>
 <template>
   <div class="user-info q-my-xl q-pa-md">
