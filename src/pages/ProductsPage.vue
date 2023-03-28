@@ -6,16 +6,20 @@ import card from "src/components/card.vue";
 let store = useApiStore();
 let route = useRoute();
 let alert1 = ref(false)
-  let userId = localStorage.getItem('userId')
-
+let userId = localStorage.getItem('userId')
+// removed user-id and reload page
 const clearStorage = ()=>{
     localStorage.removeItem('userId')
     location.reload()
     alert1.value = false
   }
+// removes older product from user orders 
+const clearOlderProducts = ()=>{
+    store.purchasedProducts.splice(0, store.purchasedProducts.length)
+}
 onMounted(() => {
   store.getProducts(route.params.id);
-
+// if user come from order page 
   if(userId){
       alert1.value = true
     }
@@ -51,7 +55,7 @@ watch(
 
         <q-card-actions align="right">
           <q-btn flat label="Yangi etish" color="primary" @click="clearStorage()" />
-          <q-btn flat label="davom" color="primary" v-close-popup />
+          <q-btn flat label="davom" color="primary" v-close-popup @click="clearOlderProducts()" />
         </q-card-actions>
       </q-card>
     </q-dialog>

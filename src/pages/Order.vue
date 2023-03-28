@@ -15,7 +15,6 @@ onMounted(() => {
     }, 6000);
   }
   
-  console.log(userId);
 });
 </script>
 

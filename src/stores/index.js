@@ -15,18 +15,27 @@ export const useApiStore = defineStore('store',{
 
   }),
   getters: {
-    
+    releatedProducts:(state)=>{
+      return state.allProducts.filter((el)=>{
+       return el.is_important == true
+     })
+    },
+    productsForMens:(state)=>{
+      return state.allProducts.filter((el)=>{
+       return el.gender == 'men'
+     })
+    },
+    productsForWomen:(state)=>{
+      return state.allProducts.filter((el)=>{
+       return el.gender == 'women'
+     })
+    },
   },
   actions:{
     async getCategory(){
       let response = await axios.get('http://insofuzlast.pythonanywhere.com/category/')
       this.categories = response.data
-      this.limitedCategory = [...this.categories]
-      console.log(this.categories);
-      if(this.limitedCategory.length > 4){
-        this.limitedCategory.length = 4
-
-      }
+      
 
     },
     async getProducts(id){
@@ -74,13 +83,11 @@ export const useApiStore = defineStore('store',{
      
     
     
-    incrementAmount(item){
-      let price= JSON.parse(item.price)
-      this.amount += price
-      item.quantity ++
+    incrementAmount(item) {
+      this.amount += Math.round(item.price);
+      item.quantity == '' ? item.quantity = 1 : item.quantity = JSON.stringify(JSON.parse(item.quantity) + 1)
+      
       console.log(item.quantity);
-      console.log(this.products, 'soni');
-      // localStorage.setItem('products', JSON.stringify( this.products))
     },  
     decrementAmount(item){
       let price= JSON.parse(item.price)
