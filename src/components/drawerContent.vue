@@ -4,6 +4,7 @@ import { onMounted } from 'vue'
 let store = useApiStore()
 onMounted(()=>{
     store.getCategory()
+    console.log(store.categories);
 })
 </script>
 <template>
@@ -21,7 +22,9 @@ onMounted(()=>{
         <!-- <q-item-section avatar>
           <q-icon :name="category.icon" />
         </q-item-section> -->
-
+        <q-item-section avatar>
+          <q-img color="primary" :src="category.images[0]?.image" width="200" height="200"/>
+        </q-item-section>
         <q-item-section>
           {{ category.category_name }}
         </q-item-section>
