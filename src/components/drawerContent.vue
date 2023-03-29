@@ -23,7 +23,8 @@ onMounted(()=>{
           <q-icon :name="category.icon" />
         </q-item-section> -->
         <q-item-section avatar>
-          <q-img color="primary" :src="category.images[0]?.image" width="200" height="200"/>
+          <q-img color="primary" :src="category.images[0]?.image" width="200" height="200" v-if="category.images[0].image"/>
+          <q-img color="primary" :src="category.images[0]?.image_link" width="200" height="200" v-else/>
         </q-item-section>
         <q-item-section>
           {{ category.category_name }}

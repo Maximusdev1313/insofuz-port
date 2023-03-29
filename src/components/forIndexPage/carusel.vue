@@ -3,7 +3,8 @@ import {ref} from 'vue'
 import {toRefs} from 'vue'
 
 const props = defineProps({
-  carusel: Array,});
+  carusel: Array,
+});
 const { carusel } = toRefs(props);
 let slide = ref('first')
 let autoplay = ref(true)
@@ -23,24 +24,13 @@ let autoplay = ref(true)
       v-model="slide"
       height="500px"
     >
-      <q-carousel-slide :name="slide.name" :img-src="slide.image" v-for="slide in carusel" :key="slide">
+      <q-carousel-slide :name="slide.id" :img-src="slide.image_link" v-for="slide in carusel" :key="slide">
         <div class="absolute-bottom custom-caption">
-          <div class="text-h2">{{ slide.title }}</div>
-          <div class="text-subtitle1">{{ slide.subtitle }}</div>
+          <div class="text-h2" v-if="slide.title">{{ slide.title }}</div>
+          <div class="text-subtitle1" v-if="slide.subtitle">{{ slide.subtitle }}</div>
         </div>
       </q-carousel-slide>
-      <!-- <q-carousel-slide name="second" img-src="https://www.theasset.com/storage/Image/2021/May/161996875318980.jpg">
-        <div class="absolute-bottom custom-caption">
-          <div class="text-h2">Second stop</div>
-          <div class="text-subtitle1">Famous City</div>
-        </div>
-      </q-carousel-slide>
-      <q-carousel-slide name="third" img-src="https://www.hindipanda.com/wp-content/uploads/2021/09/ecommerce-min.png">
-        <div class="absolute-bottom custom-caption">
-          <div class="text-h2">Third stop</div>
-          <div class="text-subtitle1">Famous Bridge</div>
-        </div>
-      </q-carousel-slide> -->
+      
     </q-carousel>
   </div>
 </template>
