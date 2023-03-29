@@ -1,53 +1,52 @@
 <script setup>
-import { ref } from 'vue'
+import {onMounted, ref} from 'vue'
+import axios from 'axios'
+import {useRoute} from 'vue-router'
+import carusel from 'src/components/forIndexPage/carusel.vue';
 
-const product = ref({
-  name: 'Product Name',
-  price: '$99.99',
-  images: [
-    'icons/packing.gif',
-    'icons/route.gif'
-  ],
-  description: 'Product description goes here'
-})
-
-const quantity = ref(1)
-const slide = ref(1)
-
-function addToCart() {
-  // handle add to cart
-}
+const route = useRoute()
+let simpleProduct = ref([])
+let  getProduct = async (id) =>{
+      try {
+        let response = await axios.get(`http://insofuzlast.pythonanywhere.com/product/${id}/`)
+        simpleProduct.value = response.data
+        console.log(simpleProduct.value);
+        
+      } catch (error) {
+          // location.reload()
+          console.log(error);
+      }
+    }
+    onMounted(()=>{
+      getProduct(route.params.id)
+    })
 </script>
+
 <template>
-  <q-page>
-    <q-card>
-      <img src="icons/packing.gif" alt="">
+  <div class="container">
+    <div class="content">
+      <div class="title text-weight-thin q-mb-sm">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, rem?
+      </div>
+      <div class="text-subtitle2  q-mb-sm">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facere recusandae vitae sit minus amet commodi perferendis unde sed quidem voluptate!
+      </div>
+      <carusel :carusel="simpleProduct.images"/>
+    </div>
+    <div>
 
-      <q-card-section>
-        <div class="text-h6">{{ product.name }}</div>
-        <div class="text-subtitle2">{{ product.price }}</div>
-      </q-card-section>
-
-      <q-separator />
-
-      <q-card-section>
-        {{ product.description }}
-      </q-card-section>
-
-      <q-separator />
-
-      <q-card-section>
-        <div class="row items-center">
-          <div class="col-4">Quantity:</div>
-          <div class="col-8">
-            <q-input v-model.number="quantity" type="number" min="1" />
-          </div>
-        </div>
-      </q-card-section>
-
-      <q-card-actions align="right">
-        <q-btn color/>
-        </q-card-actions>
-        </q-card>
-        </q-page>
+    </div>
+  </div>
 </template>
+<style scoped>
+.container{
+  width: 90%;
+  margin: 0 auto;
+}
+.content{
+  width: 600px;
+  margin-top: 20px;
+
+}
+
+</style>
