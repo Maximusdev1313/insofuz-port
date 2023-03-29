@@ -26,13 +26,14 @@ let slide = ref(1)
           
         </div>
         <div class="card__img row justify-center" >
-          <router-link to="/">
-            <img :src="product.images[0]?.image " :alt="product.images[0].title" v-if="product.images.length">            
+          <router-link :to="'/product/' + product.id" >
+            <img :src="product.images[0]?.image " :alt="product.images[0].title" v-if="product.images[0]?.image">            
+            <img :src="product.images[0]?.image_link " :alt="product.images[0].title" v-else>            
 
           </router-link>
           <!-- <div class="card__img_have-not"></div> -->
         </div>
-        <div class="title text-weight-bold text-uppercase ">{{ product.name }}</div>
+        <div class="text-subtitle1 q-pa-md text-weight-thin text-uppercase ">{{ product.name }}</div>
         <div class="card__price row justify-between text-weight-bold">
           <div class="card__price_old text-grey" > <del v-if="product.eski_narx">{{ product.old_price }} so'm</del> </div>
           <div class="card__price_new text-red">{{product.price}} so'm</div>
