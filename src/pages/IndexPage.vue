@@ -7,9 +7,9 @@ const store = useApiStore();
 
 // data for carusel
 const caruselData = [
-  {name: 'first', image: 'src/assets/commerce.png', title: 'first title', subtitle: 'subtitle'},
-  {name: 'second', image: 'https://www.theasset.com/storage/Image/2021/May/161996875318980.jpg', title: 'second title', subtitle: 'subtitle'},
-  {name: 'third', image: 'https://www.hindipanda.com/wp-content/uploads/2021/09/ecommerce-min.png', title: 'third title', subtitle: 'subtitle'}
+  {id: 'first', image_link: 'src/assets/commerce.png', title: 'first title', subtitle: 'subtitle'},
+  {id: 'second', image_link: 'https://www.theasset.com/storage/Image/2021/May/161996875318980.jpg', title: 'second title', subtitle: 'subtitle'},
+  {id: 'third', image_link: 'https://www.hindipanda.com/wp-content/uploads/2021/09/ecommerce-min.png', title: 'third title', subtitle: 'subtitle'}
 ]
 
 onBeforeMount(() => {
