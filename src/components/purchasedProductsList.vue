@@ -29,6 +29,9 @@ const store = useApiStore();
         </div>
         <div class="list__price_no-discount">{{ product.price }} So'm</div>
       </div>
+      <div class="list__size">
+        {{ product.size }}
+      </div>
       <div
         class="list__quantity row justify-between items-center content-center wrap"
       >
@@ -40,7 +43,13 @@ const store = useApiStore();
             label="+"
             @click="store.incrementAmount(product)"
           />
-          <q-btn label="-" rounded size="sm" disable v-if="product.quantity == 1" />
+          <q-btn
+            label="-"
+            rounded
+            size="sm"
+            disable
+            v-if="product.quantity == 1"
+          />
 
           <q-btn
             rounded
