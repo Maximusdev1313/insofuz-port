@@ -12,7 +12,8 @@ export const useApiStore = defineStore('store',{
     count: null,
     userId:null,
     userPosition: '',
-
+    priceNonDiscount: null,
+    priceWithDiscount: null
   }),
   getters: {
     releatedProducts:(state)=>{
@@ -86,13 +87,21 @@ export const useApiStore = defineStore('store',{
     incrementAmount(item) {
       this.amount += Math.round(item.price);
       item.quantity == '' ? item.quantity = 1 : item.quantity = JSON.stringify(JSON.parse(item.quantity) + 1)
-      
+      this.priceNonDiscount = item.quantity * item.old_price
+      this.priceWithDiscount = item.quantity * item.price
       console.log(item.quantity);
     },  
     decrementAmount(item){
       let price= JSON.parse(item.price)
-      this.amount -= price
-      item.quantity --
+      if(item.quantity >= 1 ){
+        this.amount -= price
+        item.quantity --
+        this.priceNonDiscount = item.quantity * item.old_price
+        this.priceWithDiscount = item.quantity * item.price
+      }
+      return
+      
+      
       
 
     },
