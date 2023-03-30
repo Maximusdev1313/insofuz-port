@@ -176,6 +176,7 @@ watch(
 }
 .carusel {
   max-width: 500px;
+  margin-bottom: 10px;
 }
 .toggle {
   border: 1px solid #027be3;
