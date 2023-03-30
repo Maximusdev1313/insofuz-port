@@ -13,7 +13,7 @@ const store = useApiStore();
     >
       <div class="list__img row justify-center items-center">
         <img
-          :src="product.images[0].image"
+          :src="product.images[0].image_link"
           alt=""
           width="50"
           height="50"
