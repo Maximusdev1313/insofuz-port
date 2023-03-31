@@ -15,6 +15,18 @@ export const routes = [
 
     ]
   },
+  {
+    path: '/admin',
+    component: () => import('layouts/AdminLayout.vue'),
+    children: [
+      
+      { path: '/admin/page', component: () => import('pages/Admin.vue') },
+      { path: '/admin/category/:id', component: () => import('pages/AddingProducts.vue') },
+     
+
+
+    ]
+  },
 
   // Always leave this as last one,
   // but you can also remove it
