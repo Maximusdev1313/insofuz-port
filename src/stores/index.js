@@ -31,6 +31,9 @@ export const useApiStore = defineStore('store',{
        return el.gender == 'women'
      })
     },
+    reversedCategory: (state)=>{
+      return state.categories.reverse()
+    }
   },
   actions:{
     async getCategory(){
