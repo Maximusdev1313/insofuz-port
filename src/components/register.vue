@@ -1,11 +1,13 @@
 <script setup>
 import { ref } from "vue";
-
+import { useRoute } from "vue-router";
+const route = useRoute()
 const telNumber = ref("");
 const password = ref("");
 let isPwd = ref(true);
+
 const submitForm = () => {
-  console.log(`telNumber: ${telNumber.value}, Password: ${password.value}`);
+  location.replace('/admin')
 };
 </script>
 
