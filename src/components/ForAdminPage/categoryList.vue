@@ -32,7 +32,7 @@ onMounted(()=>{
       <q-scroll-area
         :thumb-style="thumbStyle"
         :bar-style="barStyle"
-        style="height: 400px; width: 400px"
+        style="height: 90vh; width: 290px"
       >
         <q-item clickable v-for="category in store.reversedCategory" :key="category" :to="'/admin/category/'+ category.id"> 
             <!-- <q-item-section avatar>
