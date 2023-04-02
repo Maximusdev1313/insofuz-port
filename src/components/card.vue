@@ -27,8 +27,8 @@ let slide = ref(1)
         </div>
         <div class="card__img row justify-center" >
           <router-link :to="'/product/' + product.id" >
-            <img :src="product.images[0]?.image " :alt="product.images[0].title" v-if="product.images[0]?.image">            
-            <img :src="product.images[0]?.image_link " :alt="product.images[0].title" v-else>            
+            <img :src="product.images[0]?.image " :alt="product.name" v-if="product.images[0]?.image">            
+            <img :src="product.images[0]?.image_link " :alt="product.name" v-else>            
 
           </router-link>
           <!-- <div class="card__img_have-not"></div> -->
