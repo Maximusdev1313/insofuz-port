@@ -57,7 +57,7 @@ const postAllData = () => {
     </q-form>
   </div>
 </template>
-<style scoped>
+<style >
 .forms {
   width: 500px;
 }

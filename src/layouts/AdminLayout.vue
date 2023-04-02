@@ -25,7 +25,8 @@
         v-model="leftDrawerOpen"
         bordered
       >
-        <drawerContent/>
+      <div class="title q-ma-sm">Kategoriyalar</div>
+      <category-list/>
       </q-drawer>
   
       <q-page-container>
@@ -37,7 +38,7 @@
   <script setup>
   import { defineComponent, ref } from 'vue'
   import {useApiStore} from 'src/stores'
-
+import categoryList from 'src/components/ForAdminPage/categoryList.vue'
   let leftDrawerOpen = ref(false)
   function toggleLeftDrawer () {
           leftDrawerOpen.value = !leftDrawerOpen.value
