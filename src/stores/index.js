@@ -4,6 +4,7 @@ import axios from 'axios'
 export const useApiStore = defineStore('store',{
   state: ()=>({
     categories: [],
+    category: [],
     limitedCategory:[],
     products: [],
     purchasedProducts: [],
@@ -11,6 +12,7 @@ export const useApiStore = defineStore('store',{
     amount: null,
     count: null,
     userId:null,
+    specialId: null,
     userPosition: '',
     priceNonDiscount: null,
     priceWithDiscount: null
@@ -36,6 +38,11 @@ export const useApiStore = defineStore('store',{
     }
   },
   actions:{
+    generateSpecialId(){
+      let id = Date.now() + Math.floor(Math.random() * 10000);
+      this.specialId  = id.toString()
+      return id.toString()
+    },
     async getCategory(){
       let response = await axios.get('http://insofuzlast.pythonanywhere.com/category/')
       this.categories = response.data
@@ -45,7 +52,8 @@ export const useApiStore = defineStore('store',{
     async getProducts(id){
       try {
         let response = await axios.get(`http://insofuzlast.pythonanywhere.com/category/${id}/`)
-        this.products = response.data.product
+        this.category = response.data
+        this.products = this.category.product
         console.log(this.products);
         
       } catch (error) {
