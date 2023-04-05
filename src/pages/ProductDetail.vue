@@ -175,7 +175,8 @@ watch(
   font-size: 10px;
 }
 .carusel {
-  max-width: 500px;
+  /* max-width: 500px; */
+  width: 500px;
   margin-bottom: 10px;
 }
 .toggle {
