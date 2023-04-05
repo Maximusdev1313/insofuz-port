@@ -22,7 +22,7 @@ let autoplay = ref(true)
       @mouseenter="autoplay = false"
       @mouseleave="autoplay = true"
       v-model="slide"
-      height="500px"
+      
     >
       <q-carousel-slide :name="slide.id" :img-src="slide.image_link" v-for="slide in carusel" :key="slide">
         <div class="absolute-bottom custom-caption">
