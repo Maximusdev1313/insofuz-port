@@ -12,10 +12,11 @@ export const useApiStore = defineStore('store',{
     amount: null,
     count: null,
     userId:null,
-    specialId: null,
     userPosition: '',
     priceNonDiscount: null,
-    priceWithDiscount: null
+    priceWithDiscount: null,
+    alert: false,
+    done: false
   }),
   getters: {
     releatedProducts:(state)=>{
@@ -38,11 +39,7 @@ export const useApiStore = defineStore('store',{
     }
   },
   actions:{
-    generateSpecialId(){
-      let id = Date.now() + Math.floor(Math.random() * 10000);
-      this.specialId  = id.toString()
-      return id.toString()
-    },
+    
     async getCategory(){
       let response = await axios.get('http://insofuzlast.pythonanywhere.com/category/')
       this.categories = response.data
@@ -71,7 +68,19 @@ export const useApiStore = defineStore('store',{
         console.log(error);
       }
     },
-    
+    setupId (variable, storageName){
+      variable.value = Date.now() + Math.floor(Math.random() * 10000);
+      localStorage.setItem(`${storageName}`, variable.value)
+      let storageId = localStorage.getItem(`${storageName}`)
+      variable.value = storageId
+      
+    },
+    isDone(){
+      this.done = true
+      setTimeout(() => {
+        this.done = false
+      }, 1000);
+    },
     addPurchasedProducts(el, increment){
       
       this.purchasedProducts.push(el)
