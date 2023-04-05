@@ -19,7 +19,7 @@ let slide = ref(1)
           class="discount "
           
         >
-        <div v-if="product.chegirma_foizi" class="row justify-between items-center q-mt-sm  text-red text-weight-bold">
+        <div v-if="product.discount" class="row justify-between items-center q-mt-sm  text-red text-weight-bold">
           <div class="discount__title">Discount</div>
           <div class="discount__percent">{{ product.discount }} %</div>
         </div>
@@ -35,7 +35,7 @@ let slide = ref(1)
         </div>
         <div class="text-subtitle1 q-pa-md text-weight-thin text-uppercase ">{{ product.name }}</div>
         <div class="card__price row justify-between text-weight-bold">
-          <div class="card__price_old text-grey" > <del v-if="product.eski_narx">{{ product.old_price }} so'm</del> </div>
+          <div class="card__price_old text-grey" > <del v-if="product.old_price">{{ product.old_price }} so'm</del> </div>
           <div class="card__price_new text-red">{{product.price}} so'm</div>
         </div>
         <div class="counter row justify-between items-center " v-if="product.quantity">
