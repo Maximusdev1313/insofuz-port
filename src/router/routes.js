@@ -20,7 +20,7 @@ export const routes = [
     component: () => import('layouts/AdminLayout.vue'),
     children: [
       
-      { path: '/admin/page', component: () => import('pages/Admin.vue') },
+      { path: '/admin/', component: () => import('pages/Admin.vue') },
       { path: '/admin/category/:id', component: () => import('pages/AddingProducts.vue') },
      
 
