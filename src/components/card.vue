@@ -38,7 +38,7 @@ let slide = ref(1)
           <div class="card__price_old text-grey" > <del v-if="product.old_price">{{ product.old_price }} so'm</del> </div>
           <div class="card__price_new text-red">{{product.price}} so'm</div>
         </div>
-        <div class="counter row justify-between items-center " v-if="product.quantity">
+        <div class="counter row justify-between items-center " v-if="product.quantity > 0">
           <div >
             Soni: {{ product.quantity }}
 

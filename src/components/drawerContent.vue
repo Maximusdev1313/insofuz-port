@@ -31,6 +31,6 @@ onMounted(()=>{
         </q-item-section>
       </q-item>
     </q-list>
-    <q-btn  to="admin/page">register</q-btn>
+    <q-btn  to="admin/">register</q-btn>
     </div>
 </template>
