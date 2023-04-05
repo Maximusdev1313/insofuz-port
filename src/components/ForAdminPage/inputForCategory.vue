@@ -6,29 +6,32 @@ const store = useApiStore();
 let categoryName = ref("");
 
 let categoryImg = ref("");
-let specialId = Date.now() + Math.floor(Math.random() * 10000);
-store.userId = specialId;
+let idForCategory = ref('')
+
 let urlForCategory = "http://insofuzlast.pythonanywhere.com/category/";
 let urlForImages = "http://insofuzlast.pythonanywhere.com/category-images/";
+
 const postCategoryName = async () => {
+  store.setupId(idForCategory, 'idForCategory')
   try {
     const response = await axios.post(urlForCategory, {
-      id: store.userId,
+      id: idForCategory.value,
       category_name: categoryName.value,
     });
     console.log(response.data);
-  } catch (error) {
+  } 
+  catch (error) {
     console.error(error.message);
   }
+  console.log(idForCategory.value);
 };
 const postCategoryImages = async () => {
   try {
     const response = await axios.post(urlForImages, {
-      images: store.userId,
+      images: idForCategory.value,
       image_link: categoryImg.value,
       title: categoryName.value,
     });
-    store.userId = "";
     console.log(response.data);
   } catch (error) {
     console.error(error.message);
@@ -40,9 +43,7 @@ const postAllData = () => {
   postCategoryImages();
   store.getCategory();
 };
-// last qismini qilish
-// ikkimchi rasmni qo'shish uchun joy
-// yangi page ochish va productlarni qo'shish category id bo'yicha ochiladi
+
 </script>
 <template>
   <div class="forms">
