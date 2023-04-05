@@ -16,24 +16,22 @@ let price = ref("");
 let oldPrice = ref("");
 let imageLink = ref("");
 let isImportant = ref(false);
-let discountPersent = ref("");
+let discountPercent = ref("");
 let imgBtn = ref(false);
 let productId = ref("");
 
 store.getProducts(route.params.id);
-const getDiscountPersent = () => {
+const getDiscountPercent = () => {
   if (oldPrice.value) {
-    let persent = oldPrice.value / 100;
-
-    let residue = oldPrice.value - price.value;
-    discountPersent.value = Math.round(residue / persent);
-    console.log(discountPersent.value);
+    const percent = ((oldPrice.value - price.value) / oldPrice.value) * 100;
+    discountPercent.value = Math.round(percent);
+    console.log(discountPercent.value);
   }
 };
 let urlForProducts = "http://insofuzlast.pythonanywhere.com/product/";
 let urlForImages = "http://insofuzlast.pythonanywhere.com/product-images/";
 const postProducts = async () => {
-  getDiscountPersent();
+  getDiscountPercent();
   store.setupId(productId, "productId");
   console.log(productId.value);
   try {
@@ -45,7 +43,7 @@ const postProducts = async () => {
       gender: gender.value,
       price: price.value,
       old_price: oldPrice.value,
-      discount: discountPersent.value,
+      discount: discountPercent.value,
       is_important: isImportant.value,
     });
     console.log(response.data);
@@ -60,6 +58,9 @@ const postProducts = async () => {
   }
 };
 const postImages = async () => {
+  if (!productId.value) {
+    productId.value = localStorage.getItem("productId");
+  }
   try {
     const response = await axios.post(urlForImages, {
       images: productId.value,
@@ -79,7 +80,7 @@ const emptyInputs = () => {
   oldPrice.value = "";
   imageLink.value = "";
   isImportant.value = false;
-  discountPersent.value = "";
+  discountPercent.value = "";
 };
 </script>
 <template>

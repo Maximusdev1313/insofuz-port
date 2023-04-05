@@ -35,6 +35,7 @@ let order = async () => {
           total: store.amount,
         }),
       });
+      console.log(store.userPosition);
       notChecked.value = false;
     } catch (error) {
       console.log(error.message);
