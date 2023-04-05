@@ -12,39 +12,22 @@ export const useApiStore = defineStore('store',{
     amount: null,
     count: null,
     userId:null,
-    userPosition: '',
+    userPosition: null,
     priceNonDiscount: null,
     priceWithDiscount: null,
     alert: false,
     done: false
   }),
   getters: {
-    releatedProducts:(state)=>{
-      return state.allProducts.filter((el)=>{
-       return el.is_important == true
-     })
-    },
-    productsForMens:(state)=>{
-      return state.allProducts.filter((el)=>{
-       return el.gender == 'men'
-     })
-    },
-    productsForWomen:(state)=>{
-      return state.allProducts.filter((el)=>{
-       return el.gender == 'women'
-     })
-    },
-    reversedCategory: (state)=>{
-      return state.categories.reverse()
-    }
+    releatedProducts: state => state.allProducts.filter(el => el.is_important == true).slice(0, 6),
+    productsForMens:state=> state.allProducts.filter(el=> el.gender == 'men').slice(0, 6),
+    productsForWomen:state=>state.allProducts.filter(el=> el.gender == 'women').slice(0, 6),
+    reversedCategory: state=>state.categories.reverse()
   },
   actions:{
-    
     async getCategory(){
       let response = await axios.get('http://insofuzlast.pythonanywhere.com/category/')
       this.categories = response.data
-      
-
     },
     async getProducts(id){
       try {
@@ -68,12 +51,10 @@ export const useApiStore = defineStore('store',{
         console.log(error);
       }
     },
-    setupId (variable, storageName){
-      variable.value = Date.now() + Math.floor(Math.random() * 10000);
-      localStorage.setItem(`${storageName}`, variable.value)
-      let storageId = localStorage.getItem(`${storageName}`)
-      variable.value = storageId
-      
+    setupId(variable, storageName) {
+      const storageId = Date.now() + Math.floor(Math.random() * 10000);
+      localStorage.setItem(storageName, storageId);
+      variable.value = storageId;
     },
     isDone(){
       this.done = true
@@ -87,60 +68,41 @@ export const useApiStore = defineStore('store',{
       increment
       this.purchasedProducts = [...new Set(this.purchasedProducts)]
     },
-    deleteProduct(item,index){
-      let price = JSON.parse(item.price)
-      let total = price * item.quantity
-
-      if(this.amount > 0){
-        this.amount = this.amount - total
-        this.purchasedProducts.splice(index,1)
-      }
-      else{
-        return
-      }
-      
-      item.quantity = 0
-    },
-     
+    deleteProduct(item, index) {
+      const price = JSON.parse(item.price);
+      const total = price * item.quantity;
     
-    
+      if (this.amount > 0) {
+        this.amount -= total;
+        this.purchasedProducts.splice(index, 1);
+        item.quantity = 0;
+      }
+    },    
     incrementAmount(item) {
       this.amount += Math.round(item.price);
-      item.quantity == '' ? item.quantity = 1 : item.quantity = JSON.stringify(JSON.parse(item.quantity) + 1)
-      this.priceNonDiscount = item.quantity * item.old_price
-      this.priceWithDiscount = item.quantity * item.price
-      console.log(item.quantity);
-    },  
-    decrementAmount(item){
-      let price= JSON.parse(item.price)
-      if(item.quantity >= 1 ){
-        this.amount -= price
-        item.quantity --
-        this.priceNonDiscount = item.quantity * item.old_price
-        this.priceWithDiscount = item.quantity * item.price
+      item.quantity = item.quantity === '' ? 1 : JSON.parse(item.quantity) + 1;
+      this.priceNonDiscount = item.quantity * item.old_price;
+      this.priceWithDiscount = item.quantity * item.price;
+    }, 
+    decrementAmount(item) {
+      const price = JSON.parse(item.price);
+      if (item.quantity >= 1) {
+        this.amount -= price;
+        item.quantity--;
+        this.priceNonDiscount = item.quantity * item.old_price;
+        this.priceWithDiscount = item.quantity * item.price;
       }
-      return
-      
-      
-      
-
     },
-    getLocation(){
-      let location = null;
-      let latitude = null;
-      let longitude = null;
-      if(navigator.geolocation){
-          navigator.geolocation.getCurrentPosition(position =>{
-              location = position;
-              latitude = position.coords.latitude;
-              longitude = position.coords.longitude;
-              this.userPosition = latitude + "," + longitude
-          })      
+    getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+          const { latitude, longitude } = position.coords;
+          this.userPosition = `${latitude},${longitude}`;
+        });
+      } else {
+        console.log('error');
       }
-      else{
-          console.log('error');
-      }
-  }
+    }
    
 
 
