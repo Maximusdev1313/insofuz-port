@@ -24,7 +24,6 @@ onBeforeMount(() => {
 <template>
   <q-page>
     <div>
-      {{ store.releatedProducts }}
       <carusel :carusel="caruselData"/>
       <div class="title q-ma-md">
         Sizga kerakli
