@@ -13,8 +13,8 @@ let slide = ref(1)
 
 <template>
   <div class="container">
-    <div class="wrapper row justify-around items-left wrap">
-      <div class="card shadow-up-5 q-ma-md column justify-center items-center" v-for="(product,index) in products" :key="index">
+    <div class="wrapper  row ">
+      <div class="card shadow-up-5 q-ma-md col-6 col-md-4 flex justify-center" v-for="(product,index) in products" :key="index">
         <div
           class="discount "
           
@@ -77,6 +77,7 @@ let slide = ref(1)
 }
 .wrapper {
   width: 100%;
+  gap: 20px;
 }
 .card {
   width: 250px;
