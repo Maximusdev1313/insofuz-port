@@ -19,9 +19,9 @@ export const useApiStore = defineStore('store',{
     done: false
   }),
   getters: {
-    releatedProducts: state => state.allProducts.filter(el => el.is_important == true).slice(0, 6),
-    productsForMens:state=> state.allProducts.filter(el=> el.gender == 'men').slice(0, 6),
-    productsForWomen:state=>state.allProducts.filter(el=> el.gender == 'women').slice(0, 6),
+    releatedProducts: state => state.allProducts.filter(el => el.is_important == true).slice(0, 4),
+    productsForMens:state=> state.allProducts.filter(el=> el.gender == 'men').slice(0, 4),
+    productsForWomen:state=>state.allProducts.filter(el=> el.gender == 'women').slice(0, 4),
     reversedCategory: state=>state.categories.reverse()
   },
   actions:{
