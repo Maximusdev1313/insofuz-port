@@ -26,11 +26,14 @@ onMounted(()=>{
           <!-- <q-img color="primary" :src="category.images[0]?.image" width="200" height="200" v-if="category.images[0].image"/>
           <q-img color="primary" :src="category.images[0]?.image_link" width="200" height="200" v-else/> -->
         </q-item-section>
-        <q-item-section>
+        <q-item-section class="text-capitalize">
           {{ category.category_name }}
         </q-item-section>
       </q-item>
     </q-list>
-    <q-btn  to="admin/">register</q-btn>
+    <div class="absolute-bottom">
+      <q-btn  to="admin/"  color="primary">register</q-btn>
+
+    </div>
     </div>
 </template>
