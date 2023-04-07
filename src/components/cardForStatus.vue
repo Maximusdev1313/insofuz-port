@@ -9,7 +9,7 @@
 
       </div>
       <div class="card__image">
-        <img src="../assets/packing.gif" alt="sdlf;lksd" width="200" />
+        <img src="src/assets/packing.gif" alt="packing" width="200" />
       </div>
       <div class="card__alert text-negative q-ma-md">
         Iltimos sahifani tark etmang!
