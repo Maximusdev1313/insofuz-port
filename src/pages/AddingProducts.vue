@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { useRoute } from "vue-router";
 import axios from "axios";
 import { useApiStore } from "src/stores";
-import card from "src/components/card.vue";
+import cards from "src/components/cards.vue";
 import alertDialog from "src/components/alertDialog.vue";
 
 const store = useApiStore();
@@ -131,7 +131,7 @@ const emptyInputs = () => {
       </div>
     </q-form>
     <div class="products">
-      <card :products="store.products" />
+      <cards :products="store.products" />
     </div>
   </div>
 </template>
