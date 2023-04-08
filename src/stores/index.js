@@ -67,6 +67,7 @@ export const useApiStore = defineStore('store',{
       this.purchasedProducts.push(el)
       increment
       this.purchasedProducts = [...new Set(this.purchasedProducts)]
+      console.log(this.purchasedProducts);
     },
     deleteProduct(item, index) {
       const price = JSON.parse(item.price);
@@ -86,7 +87,7 @@ export const useApiStore = defineStore('store',{
     }, 
     decrementAmount(item) {
       const price = JSON.parse(item.price);
-      if (item.quantity >= 1) {
+      if (item.quantity > 1) {
         this.amount -= price;
         item.quantity--;
         this.priceNonDiscount = item.quantity * item.old_price;
