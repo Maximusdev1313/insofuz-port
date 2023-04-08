@@ -5,7 +5,7 @@ import axios from "axios";
 import Pusher from "pusher-js";
 import googleMaps from 'src/components/googleMaps.vue'
 import cardForStatus from 'src/components/cardForStatus.vue'
-
+import purchasedProductsList from 'src/components/purchasedProductsList.vue'
 Pusher.logToConsole = false;
 
 var pusher = new Pusher("1050f4fd4d96cb76281e", {
@@ -29,9 +29,8 @@ let getUserData = async (id) => {
     status.value = user.value.ready
     products.value = user.value.orderForUser;
     console.log(status.value);
-
     // userInfo.value = [...simpleCategory]
-    // console.log(userInfo.value,'user');
+    console.log(user.value,'user');
   } catch (error) {
     // location.reload()
     console.log(error);
@@ -47,28 +46,9 @@ onMounted(() => {
 <template>
   <div class="wrapper">
     <div class="title text-grey text-weight-bold text-h6 text-center">Buyurtmangiz</div>
-
     <card-for-status />
         <!-- <google-maps/> -->
-    <div class="list ">
-     <q-list padding bordered>
-      <q-item-label header>Buyurtma berilgan tovarlar</q-item-label>
-      <q-item v-for="product in products" :key="product">
-        
-        <q-item-section>
-
-          <q-item-label>{{ product.product_name }}</q-item-label>
-          <q-item-label caption lines="2">Narxi: {{ product.price }} so'm &bull;
-              Soni: {{ product.quantity }} ta   &bull; 
-             Umumiy narx: {{ product.total_price }} so'm</q-item-label>
-             
-        </q-item-section>
-
-      
-      </q-item>
-
-      </q-list> 
-    </div>
+    <purchased-products-list :products="products" :isDisable="true"/>
   </div>
 </template>
 <style scoped>
