@@ -5,8 +5,7 @@ export const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
-      { path: 'order', component: () => import('pages/Order.vue') },
-      { path: 'packer', component: () => import('pages/Packer.vue') },
+      { path: '/order', component: () => import('pages/Order.vue') },
       { path: '/product/:id', component: () => import('pages/ProductDetail.vue') },
       { path: '/user/:id/', name: 'user', component: () => import('pages/WaitRoom.vue') },
       { path: '/category/:id/', component: () => import('pages/ProductsPage.vue') },
@@ -23,6 +22,8 @@ export const routes = [
 
       { path: '/admin/', component: () => import('pages/Admin.vue') },
       { path: '/admin/category/:id', component: () => import('pages/AddingProducts.vue') },
+
+      { path: '/admin/packer', component: () => import('pages/Packer.vue') },
 
 
 
