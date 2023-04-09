@@ -10,6 +10,7 @@ export const routes = [
       { path: '/product/:id', component: () => import('pages/ProductDetail.vue') },
       { path: '/user/:id/', name: 'user', component: () => import('pages/WaitRoom.vue') },
       { path: '/category/:id/', component: () => import('pages/ProductsPage.vue') },
+      { path: 'search', component: () => import('pages/SearchPanel.vue') },
 
 
 
@@ -19,10 +20,10 @@ export const routes = [
     path: '/admin',
     component: () => import('layouts/AdminLayout.vue'),
     children: [
-      
+
       { path: '/admin/', component: () => import('pages/Admin.vue') },
       { path: '/admin/category/:id', component: () => import('pages/AddingProducts.vue') },
-     
+
 
 
     ]
