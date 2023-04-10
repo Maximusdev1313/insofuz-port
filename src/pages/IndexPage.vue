@@ -24,11 +24,14 @@ onBeforeMount(() => {
 
 <template>
   <q-page>
-    <slide/>
     <div>
+      <Suspense>
+        <carusel/>
+      </Suspense>
       <div class="title q-ma-md">
         Sizga kerakli
       </div>
+      
       <Suspense>
         <slide
           :products="store.releatedProducts"
