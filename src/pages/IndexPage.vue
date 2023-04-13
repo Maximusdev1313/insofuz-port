@@ -4,6 +4,7 @@ import carusel from "src/components/forIndexPage/carusel.vue";
 import slide from 'src/components/slide.vue'
 import { useApiStore } from "src/stores";
 import { onBeforeMount, onMounted, ref } from "vue";
+import dialogForReports from 'src/components/dialogForReports.vue'
 const store = useApiStore();
 
 // data for carusel
@@ -25,6 +26,7 @@ onBeforeMount(() => {
 <template>
   <q-page>
     <div>
+      <dialog-for-reports/>
       <Suspense>
         <carusel/>
       </Suspense>
