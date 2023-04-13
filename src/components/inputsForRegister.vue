@@ -14,7 +14,6 @@ let notChecked = ref(false);
 // set user-id if not in localstorage
 userId.value = localStorage.getItem('userId')
 let order = async () => {
-    store.getLocation();
 
     store.setupId(userId, `userId`);
     userId.value  = localStorage.getItem('userId')
@@ -25,13 +24,11 @@ let order = async () => {
           userName: userName.value,
           phoneNumber: phoneNumber.value,
           address: address.value,
-          location: store.userPosition,
+          // location: store.userPosition,
           comment: comment.value,
           total: store.amount,
       })
-      console.log(response.data);
-      console.log(store.userPosition);
-      console.log(store.purchasedProducts);
+      
       notChecked.value = false;
     } catch (error) {
       console.log(error);
@@ -54,7 +51,6 @@ const addProducts = async () => {
             price: product.price,
             total_price: total,
         })
-        console.log(product.images[0].image_link,'images');
       }
     
 
@@ -65,11 +61,14 @@ const addProducts = async () => {
     router.push({ name: "user", params: { id: userId.value } });
   } else {
     notChecked.value = true;
-    console.log(store.userId);
-    console.log("true");
+    
   }
 };
 console.log(store.purchasedProducts);
+const giveOrder = async ()=>{
+    await order()
+    await addProducts()
+}
 
 </script>
 <template>
@@ -80,7 +79,7 @@ console.log(store.purchasedProducts);
     <q-input v-model="address" label="Manzilingiz" />
     <q-input type="textarea" v-model="comment" label="Kamentariy berish" />
     <div class="q-my-md">
-      <q-btn
+      <!-- <q-btn
         @click="order()"
         :color="notChecked == true ? 'red' : 'primary'"
         icon="location_on"
@@ -90,11 +89,9 @@ console.log(store.purchasedProducts);
         <q-tooltip class="bg-accent"
           >Iltimos locatsiyani olish tugmasini bosing</q-tooltip
         >
-      </q-btn>
-      <q-btn @click="addProducts()">
-        <q-tooltip class="bg-accent"
-          >Iltimos locatsiyani olish tugmasini bosing</q-tooltip
-        >
+      </q-btn> -->
+      <q-btn @click="giveOrder()">
+        
         Buyurtma Berish
       </q-btn>
     </div>
