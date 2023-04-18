@@ -27,7 +27,6 @@ const splideOptions = {
     
 </script>
 <template>
-  {{ products }}
     <Splide :options="splideOptions" aria-label="My Favorite Images">
       <SplideSlide v-for="product in products" :key="product.id">
         <router-link :to="'/product/' + product.id">
