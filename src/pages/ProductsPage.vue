@@ -30,8 +30,7 @@ onMounted(() => {
 watch(
   () => route.params.id,
   (route) =>
-    (route =
-      route <= store.categories.length ? store.getProducts(route) : route)
+    (route = store.getProducts(route) )
 );
 </script>
 
