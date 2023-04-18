@@ -18,7 +18,7 @@
         </q-toolbar-title>
         </router-link>
 
-       <router-link to="/search" class="search-input">
+       <router-link to="/search" class="search-input gt-sm">
         <q-input v-model="search" filled type="search" class="input_header"  bg-color="purple-3" dark color="white">
         <template v-slot:append>
           <q-icon name="search" />

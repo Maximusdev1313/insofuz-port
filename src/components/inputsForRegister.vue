@@ -74,10 +74,10 @@ const giveOrder = async ()=>{
 <template>
   <div class="user-info q-my-xl q-pa-md">
     <div class="title ">Ma'lumotlaringiz</div>
-    <q-input v-model="userName" label="Ismingiz" />
-    <q-input v-model="phoneNumber" label="Raqamingiz" />
-    <q-input v-model="address" label="Manzilingiz" />
-    <q-input type="textarea" v-model="comment" label="Kamentariy berish" />
+    <q-input v-model="userName" type="text" name="fname" label="Ismingiz" />
+    <q-input v-model="phoneNumber" type="tel" name="phone"  mask="(##) ### - ## - ##" label="Raqamingiz" fill-mask />
+    <q-input v-model="address" type="text" name="address" label="Manzilingiz" />
+    <q-input type="textarea" v-model="comment" name="comment" label="Kamentariy berish" />
     <div class="q-my-md">
       <!-- <q-btn
         @click="order()"

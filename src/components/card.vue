@@ -79,7 +79,7 @@ const { product } = toRefs(props);
           store.addPurchasedProducts(product, store.incrementAmount(product))
         "
       >
-        <q-tooltip class="bg-accent">Savatchaga qo'shish</q-tooltip>
+        
         Sotib olish
       </q-btn>
     </div>

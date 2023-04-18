@@ -142,7 +142,6 @@ onMounted(() => {
 </script>
 <template>
   <div class="wrapper">
-    <q-btn @click="patchTotalValues()">bos</q-btn>
     <div class="title text-grey text-weight-bold text-h6 text-center">
       Buyurtmangiz
     </div>
