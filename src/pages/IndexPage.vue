@@ -14,7 +14,7 @@ const caruselData = [
   {id: 'third', image_link: 'https://www.hindipanda.com/wp-content/uploads/2021/09/ecommerce-min.png', title: 'third title', subtitle: 'subtitle'}
 ]
 
-onBeforeMount(() => {
+onMounted(() => {
   store.getAllProducts();
   store.getCategory();
 });
@@ -26,9 +26,8 @@ onBeforeMount(() => {
 <template>
   <q-page>
     <div>
-      <dialog-for-reports/>
       <Suspense>
-        <carusel/>
+        <carusel :carusel="caruselData"/>
       </Suspense>
       <div class="title q-ma-md">
         Sizga kerakli

@@ -31,9 +31,9 @@ onMounted(()=>{
         </q-item-section>
       </q-item>
     </q-list>
-    <div class="absolute-bottom">
+    <!-- <div class="absolute-bottom">
       <q-btn  to="admin/"  color="primary">register</q-btn>
 
-    </div>
+    </div> -->
     </div>
 </template>

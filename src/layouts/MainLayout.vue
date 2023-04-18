@@ -18,8 +18,8 @@
         </q-toolbar-title>
         </router-link>
 
-       <router-link to="/search" >
-        <q-input v-model="search" filled type="search" class="input_header" style="width: 400px;" bg-color="purple-3" dark color="white">
+       <router-link to="/search" class="search-input">
+        <q-input v-model="search" filled type="search" class="input_header"  bg-color="purple-3" dark color="white">
         <template v-slot:append>
           <q-icon name="search" />
         </template>
@@ -69,5 +69,8 @@ function toggleLeftDrawer () {
 }
 .input_header{
   margin: 10px;
+}
+.search-input{
+  width: 60%;
 }
 </style>

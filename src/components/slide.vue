@@ -29,7 +29,8 @@ const splideOptions = {
 <template>
     <Splide :options="splideOptions" aria-label="My Favorite Images">
       <SplideSlide v-for="product in products" :key="product">
-        <q-img :src="product.images[0]?.image_link " :alt="product.name" class="q-pa-md">
+        <router-link :to="'/product/' + product.id">
+          <q-img :src="product.images[0]?.image_link " :alt="product.name" class="q-pa-md img">
             <div class="absolute-full column ">
                 <div class="discount row justify-between">
                     <div class="discount__title">
@@ -46,6 +47,8 @@ const splideOptions = {
 
             </div>
         </q-img>
+        </router-link>
+        
     </SplideSlide>
     </Splide>
   </template>
@@ -53,5 +56,7 @@ const splideOptions = {
 .product-title{
     height: 80%;
 }
-
+.img{
+  height: 400px;
+}
 </style>

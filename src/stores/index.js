@@ -20,18 +20,18 @@ export const useApiStore = defineStore('store',{
   }),
   getters: {
     releatedProducts: state => state.allProducts.filter(el => el.is_important == true).slice(0, 4),
-    productsForMens:state=> state.allProducts.filter(el=> el.gender == 'men').slice(0, 4),
-    productsForWomen:state=>state.allProducts.filter(el=> el.gender == 'women').slice(0, 4),
+    productsForMens:state=> state.allProducts.filter(el=> el.gender == "Erkaklar").slice(0, 4),
+    productsForWomen:state=>state.allProducts.filter(el=> el.gender == 'Ayollar').slice(0, 4),
     reversedCategory: state=>state.categories.reverse()
   },
   actions:{
     async getCategory(){
-      let response = await axios.get('http://insofuzlast.pythonanywhere.com/category/')
+      let response = await axios.get('http://insofuzlast.pythonanywhere.com/category/', {mode: 'no-cors'})
       this.categories = response.data
     },
     async getProducts(id){
       try {
-        let response = await axios.get(`http://insofuzlast.pythonanywhere.com/category/${id}/`)
+        let response = await axios.get(`http://insofuzlast.pythonanywhere.com/category/${id}/`, {mode: 'no-cors'})
         this.category = response.data
         this.products = this.category.product
         console.log(this.products);
@@ -43,7 +43,7 @@ export const useApiStore = defineStore('store',{
     },
     async getAllProducts() {
       try {
-        let response = await axios.get(`http://insofuzlast.pythonanywhere.com/product/`)
+        let response = await axios.get(`http://insofuzlast.pythonanywhere.com/product/`, {mode: 'no-cors'})
         this.allProducts = response.data
         console.log(this.allProducts);
       } catch (error) {

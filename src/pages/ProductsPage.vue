@@ -38,8 +38,6 @@ watch(
 <template>
   <q-page>
     <div>
-      detail
-      {{ route.params.id }}
       <q-dialog v-model="alert1" >
       <q-card>
         <q-card-section>
