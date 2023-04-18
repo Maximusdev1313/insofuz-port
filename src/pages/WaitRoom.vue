@@ -71,6 +71,7 @@ const getDateFromReportApi = async () => {
 };
 
 const dayId = ref();
+// adding new day if is not exist
 const addNewDay = async () => {
   store.setupId(dayId, "dayId");
   try {
@@ -85,7 +86,7 @@ const addNewDay = async () => {
     console.log(err);
   }
 };
-
+// adding products to last day
 const postProductsToReportApi = async () => {
   try {
     for (let product of products.value) {
@@ -106,18 +107,27 @@ const postProductsToReportApi = async () => {
     console.log(err);
   }
 };
-
+// calculate total quantity of products and add last quantity
 const calculateTotalQuantity = () => {
+    // if have'nt product's quantity equalization to number for calculate
+    !productQuantity.value ? productQuantity.value = 0 : productQuantity.value
+    // calculate ordered product's quantity
     const allQuantity = products.value.reduce((accumulator, currentItem) => accumulator + Number(currentItem.quantity), 0);
+    // add ordered products quantity to common variable
     productQuantity.value = Number(productQuantity.value) + allQuantity;
     
 };
+
+// patching total products quantity
 const patchTotalValues = async () =>{
+  // wait getting last day's data
   await getDateFromReportApi()
+  // calculate products quantity
   calculateTotalQuantity()
 
   console.log(lastDayId.value);
   console.log(productQuantity.value);
+  // post total quantity
   const response = await axios.patch(`http://insofuzlast.pythonanywhere.com/report-by-day/${lastDayId.value}/`,{
     products_quantity: productQuantity.value
   }
@@ -125,16 +135,35 @@ const patchTotalValues = async () =>{
   console.log(response.data);
 
 }
+
+
+// adding total earnings 
+const calculateTotalEarnings = async () =>{
+  !lastDay.value.total_earnings ? lastDay.value.total_earnings = 0 : lastDay.value.total_earnings
+  lastDay.value.total_earnings += Number(user.value.total)
+  
+}
+
 // add products report api
 const addProductsToReportPage = async () => {
+  // await last day's data
   await getDateFromReportApi();
+  // if last day equal today it adds all products and changes total product's value
   if (isToday(lastTime.value)) {
-    postProductsToReportApi();
+
+   await postProductsToReportApi();
+
+   await patchTotalValues()
   } else {
+    // last day not equal today adding new day to api 
     await addNewDay();
+    // get today's data
     await getDateFromReportApi();
+    //post products 
     await postProductsToReportApi();
-  }
+    // patching total values
+    await patchTotalValues()
+  } 
 };
 onMounted(() => {
   getUserData(userId);
