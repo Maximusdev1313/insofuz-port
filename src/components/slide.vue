@@ -14,7 +14,7 @@ const splideOptions = {
         type: 'loop',
         perPage: 3,
         focus: 'center',
-        autoplay: true,
+        
         breakpoints: {
           640: {
             perPage: 2,
@@ -27,10 +27,11 @@ const splideOptions = {
     
 </script>
 <template>
+  {{ products }}
     <Splide :options="splideOptions" aria-label="My Favorite Images">
-      <SplideSlide v-for="product in products" :key="product">
+      <SplideSlide v-for="product in products" :key="product.id">
         <router-link :to="'/product/' + product.id">
-          <q-img :src="product.images[0]?.image_link " :alt="product.name" class="q-pa-md img">
+          <q-img :src="product.images[0]?.image_link " :alt="product.name" class="q-pa-md img" spinner-color="">
             <div class="absolute-full column ">
                 <div class="discount row justify-between">
                     <div class="discount__title">

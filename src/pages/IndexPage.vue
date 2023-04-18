@@ -39,7 +39,7 @@ onMounted(() => {
         />
       </Suspense>
       <div class="title q-ma-md">
-        Erkaklar uchun
+        Sabzavotlar
       </div>
       <Suspense>
         <slide
@@ -47,7 +47,7 @@ onMounted(() => {
         />
       </Suspense>
       <div class="title q-ma-md">
-        Ayollar uchun
+        Shirinliklar
       </div>
       <Suspense>
         <slide
