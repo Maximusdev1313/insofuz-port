@@ -13,7 +13,7 @@ const { products } = toRefs(props);
 const splideOptions = {
         type: 'loop',
         perPage: 3,
-        focus: 'center',
+        // focus: 'center',
         
         breakpoints: {
           640: {
