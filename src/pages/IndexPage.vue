@@ -1,8 +1,10 @@
 <script setup>
 import carusel from "src/components/forIndexPage/carusel.vue";
-import card from "src/components/card.vue";
+// import card from "src/components/card.vue";
+import slide from 'src/components/slide.vue'
 import { useApiStore } from "src/stores";
 import { onBeforeMount, onMounted, ref } from "vue";
+import dialogForReports from 'src/components/dialogForReports.vue'
 const store = useApiStore();
 
 // data for carusel
@@ -12,7 +14,7 @@ const caruselData = [
   {id: 'third', image_link: 'https://www.hindipanda.com/wp-content/uploads/2021/09/ecommerce-min.png', title: 'third title', subtitle: 'subtitle'}
 ]
 
-onBeforeMount(() => {
+onMounted(() => {
   store.getAllProducts();
   store.getCategory();
 });
@@ -24,28 +26,31 @@ onBeforeMount(() => {
 <template>
   <q-page>
     <div>
-      <carusel :carusel="caruselData"/>
+      <Suspense>
+        <carusel :carusel="caruselData"/>
+      </Suspense>
       <div class="title q-ma-md">
         Sizga kerakli
       </div>
+      
       <Suspense>
-        <card
+        <slide
           :products="store.releatedProducts"
         />
       </Suspense>
       <div class="title q-ma-md">
-        Erkaklar uchun
+        Sabzavotlar
       </div>
       <Suspense>
-        <card
+        <slide
           :products="store.productsForMens"
         />
       </Suspense>
       <div class="title q-ma-md">
-        Ayollar uchun
+        Shirinliklar
       </div>
       <Suspense>
-        <card
+        <slide
           :products="store.productsForWomen"
         />
       </Suspense>
