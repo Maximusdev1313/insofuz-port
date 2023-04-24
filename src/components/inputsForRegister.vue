@@ -58,6 +58,7 @@ const addProducts = async () => {
       console.log(err.massage);
       addProducts();
     }
+    sessionStorage.setItem('ordered', true)
     router.push({ name: "user", params: { id: userId.value } });
   } else {
     notChecked.value = true;
@@ -65,9 +66,16 @@ const addProducts = async () => {
   }
 };
 console.log(store.purchasedProducts);
+const checkOrders = sessionStorage.getItem('ordered')
+console.log(checkOrders);
 const giveOrder = async ()=>{
+  if(!checkOrders){
     await order()
     await addProducts()
+  }
+  else{
+    await addProducts()
+  }
 }
 
 </script>
