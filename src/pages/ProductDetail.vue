@@ -162,7 +162,7 @@ watch(
   margin-top: 10px;
 }
 .product__discription {
-  max-width: 500px;
+  max-width: 90%;
 }
 .product__price {
   max-width: 400px;

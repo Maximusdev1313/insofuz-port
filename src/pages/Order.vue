@@ -3,6 +3,7 @@ import purchasedProductsList from "src/components/purchasedProductsList.vue";
 import inputsForRegister from "src/components/inputsForRegister.vue";
 import { onMounted, ref } from "vue";
 import { useApiStore } from "src/stores";
+import axios from "axios";
 const store = useApiStore();
 let alert = ref(false);
 
@@ -42,7 +43,7 @@ onMounted(() => {
   </div>
   <div class="wrapper" v-if="store.purchasedProducts.length">
     <inputs-for-register />
-    <purchased-products-list class="q-my-md" />
+    <purchased-products-list class="q-my-md" :products="store.purchasedProducts" :isDisable="false"/>
   </div>
 </template>
 <style scoped>

@@ -2,7 +2,7 @@
 import { useRoute } from "vue-router";
 import { ref, onMounted, watch } from "vue";
 import { useApiStore } from "src/stores";
-import card from "src/components/card.vue";
+import cards from "src/components/cards.vue";
 let store = useApiStore();
 let route = useRoute();
 let alert1 = ref(false)
@@ -14,9 +14,9 @@ const clearStorage = ()=>{
     alert1.value = false
   }
 // removes older product from user orders 
-const clearOlderProducts = ()=>{
-    store.purchasedProducts.splice(0, store.purchasedProducts.length)
-}
+// const clearOlderProducts = ()=>{
+//     store.purchasedProducts.splice(0, store.purchasedProducts.length)
+// }
 onMounted(() => {
   store.getProducts(route.params.id);
 // if user come from order page 
@@ -30,16 +30,13 @@ onMounted(() => {
 watch(
   () => route.params.id,
   (route) =>
-    (route =
-      route <= store.categories.length ? store.getProducts(route) : route)
+    (route = store.getProducts(route) )
 );
 </script>
 
 <template>
   <q-page>
     <div>
-      detail
-      {{ route.params.id }}
       <q-dialog v-model="alert1" >
       <q-card>
         <q-card-section>
@@ -55,12 +52,12 @@ watch(
 
         <q-card-actions align="right">
           <q-btn flat label="Yangi etish" color="primary" @click="clearStorage()" />
-          <q-btn flat label="davom" color="primary" v-close-popup @click="clearOlderProducts()" />
+          <q-btn flat label="davom" color="primary" v-close-popup  />
         </q-card-actions>
       </q-card>
     </q-dialog>
       <Suspense>
-        <card :products="store.products" v-if="store.products.length" />
+        <cards :products="store.products" v-if="store.products.length" />
       </Suspense>
     </div>
   </q-page>
