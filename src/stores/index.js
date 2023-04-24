@@ -9,6 +9,8 @@ export const useApiStore = defineStore('store',{
     products: [],
     purchasedProducts: [],
     allProducts:[],
+    users_info:[],
+    user_info:[],
     amount: null,
     count: null,
     userId:null,
@@ -35,7 +37,7 @@ export const useApiStore = defineStore('store',{
         this.category = response.data
         this.products = this.category.product
         console.log(this.products);
-        
+
       } catch (error) {
           // location.reload()
           console.log(error);
@@ -63,7 +65,7 @@ export const useApiStore = defineStore('store',{
       }, 1000);
     },
     addPurchasedProducts(el, increment){
-      
+
       this.purchasedProducts.push(el)
       increment
       this.purchasedProducts = [...new Set(this.purchasedProducts)]
@@ -72,19 +74,19 @@ export const useApiStore = defineStore('store',{
     deleteProduct(item, index) {
       const price = JSON.parse(item.price);
       const total = price * item.quantity;
-    
+
       if (this.amount > 0) {
         this.amount -= total;
         this.purchasedProducts.splice(index, 1);
         item.quantity = 0;
       }
-    },    
+    },
     incrementAmount(item) {
       this.amount += Math.round(item.price);
       item.quantity = item.quantity === '' ? 1 : JSON.parse(item.quantity) + 1;
       this.priceNonDiscount = item.quantity * item.old_price;
       this.priceWithDiscount = item.quantity * item.price;
-    }, 
+    },
     decrementAmount(item) {
       const price = JSON.parse(item.price);
       if (item.quantity > 1) {
@@ -103,12 +105,21 @@ export const useApiStore = defineStore('store',{
       } else {
         console.log('error');
       }
-    }
-   
+    },
+    async getUsersInfo(){
+      let response = await axios.get('http://insofuzlast.pythonanywhere.com/user/')
+      this.users_info = response.data.reverse()
+
+    },
+    async getUserInfo(id){
+      let response = await axios.get('http://insofuzlast.pythonanywhere.com/user/'+id+'/')
+      this.user_info = response.data
+
+    },
 
 
   },
-  
+
 
 })
 /*
