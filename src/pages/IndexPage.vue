@@ -1,6 +1,6 @@
 <script setup>
 import carusel from "src/components/forIndexPage/carusel.vue";
-// import card from "src/components/card.vue";
+import cards from "src/components/cards.vue";
 import slide from 'src/components/slide.vue'
 import { useApiStore } from "src/stores";
 import { onBeforeMount, onMounted, ref } from "vue";
@@ -34,15 +34,31 @@ onMounted(() => {
       </div>
       
       <Suspense>
-        <slide
-          :products="store.releatedProducts"
+        <cards
+        class="desktop-only"
+        :products="store.releatedProducts"
         />
+        
+      </Suspense>
+      <Suspense>
+        <slide
+        class="mobile-only"
+        :products="store.releatedProducts"
+        />
+        
       </Suspense>
       <div class="title q-ma-md">
         Sabzavotlar
       </div>
       <Suspense>
+        <cards
+          class="desktop-only"
+          :products="store.productsForMens"
+        />
+      </Suspense>
+      <Suspense>
         <slide
+        class="mobile-only"
           :products="store.productsForMens"
         />
       </Suspense>
@@ -50,10 +66,18 @@ onMounted(() => {
         Shirinliklar
       </div>
       <Suspense>
-        <slide
+        <cards
+        class="desktop-only"
           :products="store.productsForWomen"
         />
       </Suspense>
+      <Suspense>
+        <slide
+        class="mobile-only"
+          :products="store.productsForWomen"
+        />
+      </Suspense>
+      
     </div>
   </q-page>
 </template>
