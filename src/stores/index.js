@@ -116,6 +116,11 @@ export const useApiStore = defineStore('store',{
       this.user_info = response.data
 
     },
+    async getChangeReady(id,value){
+      axios.patch('https://insofuzlast.pythonanywhere.com/user/'+id+'/' ,{
+        ready:value
+      })
+    }
 
 
   },

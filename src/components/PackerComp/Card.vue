@@ -1,7 +1,7 @@
 <template >
   <div class="container">
     <div class="card-car row justify-center q-pa-md">
-      <div class="w-100pr ">
+      <div class=" container__carousel ">
         <CaruselCard :orders="props.order.orderForUser" />
       </div>
       <span class="info" >
@@ -40,6 +40,9 @@ const props = defineProps({order:Object})
 <style lang="css" scoped>
 .container{
   position: relative;
+}
+.container__carousel{
+  width: 100%;
 }
 a{
   text-decoration: none;
