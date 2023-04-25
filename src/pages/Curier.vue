@@ -4,14 +4,13 @@
       Bugungi Buyurtmalar
     </div>
     <div class=" container__section">
-      <Table :users="store.users_info" />
+      <TableCurier :users="store.users_info" />
     </div>
   </div>
 </template>
 
 <script setup>
-import Card from 'src/components/PackerComp/Card.vue'
-import Table from 'src/components/PackerComp/Table.vue';
+import TableCurier from 'src/components/Curier/TableCurier.vue'
 import { useApiStore } from "src/stores"
 const store = useApiStore()
 store.getUsersInfo()

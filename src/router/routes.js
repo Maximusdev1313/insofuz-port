@@ -24,6 +24,9 @@ export const routes = [
       { path: '/admin/category/:id', component: () => import('pages/AddingProducts.vue') },
       { path: '/admin/report', component: () => import('pages/ReportPage.vue') },
       { path: '/admin/packer', component: () => import('pages/Packer.vue') },
+      { path: '/admin/packer/:id', component: () => import('pages/PackerForUser.vue') },
+      { path: '/admin/curier', component: () => import('pages/Curier.vue') },
+      { path: '/admin/curier/:id', component: () => import('pages/CurierForUser.vue') },
 
 
 
