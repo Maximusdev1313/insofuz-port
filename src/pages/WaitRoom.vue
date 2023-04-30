@@ -137,6 +137,7 @@ const patchTotalValues = async () =>{
 }
 
 
+
 // adding total earnings 
 const calculateTotalEarnings = async () =>{
   !lastDay.value.total_earnings ? lastDay.value.total_earnings = 0 : lastDay.value.total_earnings

@@ -18,7 +18,7 @@ const { products, isDisable } = toRefs(props);
       :key="product.id"
     >
     <div class="wrapper ">
-      <div class="list__img row justify-center items-center">
+      <div class="list__img row justify-center items-center" v-if="product.images.length >= 1">
         <img
           :src="product.images[0].image_link"
           alt=""
@@ -31,11 +31,12 @@ const { products, isDisable } = toRefs(props);
           alt=""
           width="50"
           height="50"
-          v-else-if="product.image_link"
+          v-else
         />
         
-        <q-icon name="image" size="xl" v-else></q-icon>
       </div>
+      <q-icon name="image" size="xl" v-else></q-icon>
+
 
       <div class="list__label">{{ product.name }}</div>
       <div class="list__size" v-if="product.size">
