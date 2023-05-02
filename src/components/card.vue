@@ -24,7 +24,7 @@ const { product } = toRefs(props);
       </div>
     </div>
     <div class="card__img row justify-center">
-      <router-link :to="'/product/' + product.id">
+      <!-- <router-link :to="'/product/' + product.id"> -->
         <!-- <img
           :src="product.images[0]?.image"
           :alt="product.name"
@@ -32,7 +32,7 @@ const { product } = toRefs(props);
         /> -->
         <p v-if="product.images[0]?.image">rasm</p>
         <img :src="product.images[0]?.image_link" :alt="product.name" v-else />
-      </router-link>
+      <!-- </router-link> -->
       <!-- <div class="card__img_have-not"></div> -->
     </div>
     <div class="text-subtitle1 q-pa-md text-weight-thin text-uppercase">

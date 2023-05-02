@@ -8,25 +8,25 @@ let route = useRoute();
 let alert1 = ref(false)
 let userId = localStorage.getItem('userId')
 
-// removes older product from user orders 
+// removes older product from user orders
 const clearOlderProducts = ()=>{
     store.purchasedProducts.splice(0, store.purchasedProducts.length)
 }
 // removed user-id and reload page
 const clearStorage = ()=>{
-  
+
     sessionStorage.removeItem('ordered')
     clearOlderProducts()
     alert1.value = false
   }
 onMounted(() => {
   store.getProducts(route.params.id);
-// if user come from order page 
-  if(userId){
-      alert1.value = true
-    }
-  
-  
+// if user come from order page
+  // if(userId){
+  //     alert1.value = true
+  //   }
+
+
 });
 
 watch(
@@ -63,8 +63,8 @@ watch(
       </Suspense>
     </div>
     <!-- qilinishi kerak -->
-    <!-- agarda ok tugmasi bosilsa eski Buyurtmalarni tozalash 
-    yangi buyurtmalarnigina qo'shish 
+    <!-- agarda ok tugmasi bosilsa eski Buyurtmalarni tozalash
+    yangi buyurtmalarnigina qo'shish
     report pagega users count ni qo'shish -->
   </q-page>
 </template>
