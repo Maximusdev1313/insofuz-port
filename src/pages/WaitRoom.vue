@@ -19,19 +19,19 @@ channel.bind("getUserData", function (data) {
 const store = useApiStore();
 let user = ref([]);
 let products = ref();
-let userId = localStorage.getItem("userId");
+let userId = sessionStorage.getItem("userId");
 let status = ref("");
 let getUserData = async (id) => {
   try {
-    let apiData = await axios.get(
+    const response = await axios.get(
       `http://insofuzlast.pythonanywhere.com/user/${id}/`
     );
-    user.value = apiData.data;
+    user.value = response.data;
     status.value = user.value.ready;
     products.value = user.value.orderForUser;
 
     // userInfo.value = [...simpleCategory]
-    console.log(user.value, "user");
+    console.log(response.data, "user");
   } catch (error) {
     // location.reload()
     console.log(error);
@@ -115,7 +115,7 @@ const calculateTotalQuantity = () => {
     const allQuantity = products.value.reduce((accumulator, currentItem) => accumulator + Number(currentItem.quantity), 0);
     // add ordered products quantity to common variable
     productQuantity.value = Number(productQuantity.value) + allQuantity;
-    
+
 };
 
 // patching total products quantity
@@ -138,11 +138,11 @@ const patchTotalValues = async () =>{
 
 
 
-// adding total earnings 
+// adding total earnings
 const calculateTotalEarnings = async () =>{
   !lastDay.value.total_earnings ? lastDay.value.total_earnings = 0 : lastDay.value.total_earnings
   lastDay.value.total_earnings += Number(user.value.total)
-  
+
 }
 
 // add products report api
@@ -156,15 +156,15 @@ const addProductsToReportPage = async () => {
 
    await patchTotalValues()
   } else {
-    // last day not equal today adding new day to api 
+    // last day not equal today adding new day to api
     await addNewDay();
     // get today's data
     await getDateFromReportApi();
-    //post products 
+    //post products
     await postProductsToReportApi();
     // patching total values
     await patchTotalValues()
-  } 
+  }
 };
 onMounted(() => {
   getUserData(userId);

@@ -6,11 +6,12 @@ import cards from "src/components/cards.vue";
 let store = useApiStore();
 let route = useRoute();
 let alert1 = ref(false)
-let userId = localStorage.getItem('userId')
+let userId = sessionStorage.getItem('userId')
 
 // removes older product from user orders
 const clearOlderProducts = ()=>{
     store.purchasedProducts.splice(0, store.purchasedProducts.length)
+    store.amount = null
 }
 // removed user-id and reload page
 const clearStorage = ()=>{
@@ -22,9 +23,9 @@ const clearStorage = ()=>{
 onMounted(() => {
   store.getProducts(route.params.id);
 // if user come from order page
-  // if(userId){
-  //     alert1.value = true
-  //   }
+  if(userId){
+      alert1.value = true
+    }
 
 
 });

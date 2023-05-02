@@ -11,12 +11,12 @@ let address = ref("");
 let comment = ref("");
 let userId = ref('')
 let notChecked = ref(false);
-// set user-id if not in localstorage
-userId.value = localStorage.getItem('userId')
+// set user-id if not in sessionStorage
+userId.value = sessionStorage.getItem('userId')
 let order = async () => {
 
     store.setupId(userId, `userId`);
-    userId.value  = localStorage.getItem('userId')
+    userId.value  = sessionStorage.getItem('userId')
 
     try {
       const response = await axios.post("http://insofuzlast.pythonanywhere.com/user/",{
@@ -28,12 +28,12 @@ let order = async () => {
           comment: comment.value,
           total: store.amount,
       })
-      
+
       notChecked.value = false;
     } catch (error) {
       console.log(error);
     }
-   
+
 };
 console.log(store.purchasedProducts);
 const addProducts = async () => {
@@ -41,39 +41,57 @@ const addProducts = async () => {
     try {
       for (let product of store.purchasedProducts) {
         let total = product.price * product.quantity;
+
         const response = await axios.post('http://insofuzlast.pythonanywhere.com/orders/',{
             orderForUser: userId.value,
             image_link: product.images[0].image_link,
             name: product.name,
             quantity: product.quantity,
             size: product.size,
-            gender: product.gender,
             price: product.price,
             total_price: total,
         })
+        console.log(response.data);
       }
-    
+
 
     } catch (err) {
-      console.log(err.massage);
-      addProducts();
+      console.log(err);
+      // addProducts();
     }
     sessionStorage.setItem('ordered', true)
     router.push({ name: "user", params: { id: userId.value } });
   } else {
     notChecked.value = true;
-    
+
   }
 };
+const patchingProductQuantity = async () =>{
+  try {
+    for(let product of store.purchasedProducts){
+    const response = await axios.patch(`http://insofuzlast.pythonanywhere.com/product/${product.id}/`,{
+      quantity_in_store: product.quantity_in_store - product.quantity
+    })
+    console.log(response.data, 'pathc');
+
+    }
+
+  } catch (error) {
+    console.log(error);
+  }
+}
 console.log(store.purchasedProducts);
 const checkOrders = sessionStorage.getItem('ordered')
 console.log(checkOrders);
 const giveOrder = async ()=>{
   if(!checkOrders){
     await order()
+    await patchingProductQuantity()
+
     await addProducts()
   }
   else{
+     await patchingProductQuantity()
     await addProducts()
   }
 }
@@ -99,7 +117,7 @@ const giveOrder = async ()=>{
         >
       </q-btn> -->
       <q-btn @click="giveOrder()">
-        
+
         Buyurtma Berish
       </q-btn>
     </div>
