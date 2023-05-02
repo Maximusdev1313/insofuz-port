@@ -1,6 +1,7 @@
 <script setup>
 import { toRefs } from "vue";
 import { useApiStore } from "src/stores";
+import buttonGroup from "./buttonGroup.vue";
 const store = useApiStore();
 const props = defineProps({
   products: Array,
@@ -33,7 +34,7 @@ const { products, isDisable } = toRefs(props);
           height="50"
           v-else
         />
-        
+
       </div>
       <q-icon name="image" size="xl" v-else></q-icon>
 
@@ -54,28 +55,12 @@ const { products, isDisable } = toRefs(props);
         {{ product.price * product.quantity }} So'm
       </div>
 
-      
+
       <div
         v-if="!isDisable"
         class="list__quantity row justify-between items-center content-center wrap"
       >
-        <q-btn-group rounded class="button-group">
-          <q-btn
-            rounded
-            size="sm"
-            label="+"
-            @click="store.incrementAmount(product)"
-          />
-          <div class="item-count">{{ product.quantity }} ta</div>
-
-          <q-btn
-            rounded
-            :class="product.quantity > 1 ? 'button' : 'btn-disable'"
-            size="sm"
-            label="-"
-            @click="store.decrementAmount(product)"
-          />
-        </q-btn-group>
+        <button-group :product="product"/>
       </div>
       <div class="button" v-if="!isDisable">
         <q-icon

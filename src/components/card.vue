@@ -1,6 +1,7 @@
 <script setup>
 import { toRefs } from "vue";
 import { useApiStore } from "src/stores";
+import buttonGroup from "./buttonGroup.vue";
 const store = useApiStore();
 const props = defineProps({
   product: {
@@ -27,7 +28,7 @@ const { product } = toRefs(props);
         <!-- <img
           :src="product.images[0]?.image"
           :alt="product.name"
-          
+
         /> -->
         <p v-if="product.images[0]?.image">rasm</p>
         <img :src="product.images[0]?.image_link" :alt="product.name" v-else />
@@ -47,24 +48,7 @@ const { product } = toRefs(props);
       class="counter row justify-between items-center"
       v-if="product.quantity > 0"
     >
-      <div>Soni: {{ product.quantity }}</div>
-      <q-btn-group rounded class="button-group">
-        <q-btn
-          rounded
-          size="sm"
-          label="+"
-          @click="store.incrementAmount(product)"
-        />
-        <q-btn
-          rounded
-          size="sm"
-          label="-"
-          @click="store.decrementAmount(product)"
-          v-if="product.quantity > 1"
-        />
-
-        <q-btn label="-" rounded size="sm" disable v-else />
-      </q-btn-group>
+      <button-group :product="product"/>
     </div>
     <div class="counter text-center text-grey" v-else>
       Buyurtma berilmagan...
@@ -79,7 +63,7 @@ const { product } = toRefs(props);
           store.addPurchasedProducts(product, store.incrementAmount(product))
         "
       >
-        
+
         Sotib olish
       </q-btn>
     </div>
