@@ -13,7 +13,7 @@ const { product } = toRefs(props);
 </script>
 
 <template>
-  <div class="card shadow-up-5 q-ma-md  column justify-center items-center" v-if="product">
+  <div class="card shadow-up-3 q-ma-md  column justify-between items-center" v-if="product">
     <div class="discount">
       <div
         v-if="product.discount"
@@ -23,15 +23,15 @@ const { product } = toRefs(props);
         <div class="discount__percent">{{ product.discount }} %</div>
       </div>
     </div>
-    <div class="card__img row justify-center">
+    <div class="card__img ">
+      <p v-if="product.images[0]?.image">rasm</p>
+        <q-img :src="product.images[0]?.image_link" :alt="product.name" class="img" :ratio="4/3" v-else />
       <!-- <router-link :to="'/product/' + product.id"> -->
         <!-- <img
           :src="product.images[0]?.image"
           :alt="product.name"
 
         /> -->
-        <p v-if="product.images[0]?.image">rasm</p>
-        <img :src="product.images[0]?.image_link" :alt="product.name" v-else />
       <!-- </router-link> -->
       <!-- <div class="card__img_have-not"></div> -->
     </div>
@@ -56,7 +56,7 @@ const { product } = toRefs(props);
 
     <div class="card__button">
       <q-btn
-        class="card__button_add full-width q-my-md"
+        class="card__button_add full-width q-my-sm"
         icon="shopping_cart"
         color="accent"
         @click="
@@ -81,8 +81,8 @@ const { product } = toRefs(props);
   margin-bottom: 20px;
 }
 
-img,.card__img {
-  width: 200px;
+.img, .card__img.img {
+ width: 200px;
   height: 200px;
   border-radius: 15px;
 }
@@ -100,7 +100,18 @@ img,.card__img {
 }
 @media (max-width: 600px){
     .card{
-      width: 80%;
+      width: 47%;
+      margin: 0;
+    }
+    .img{
+      width: 150px;
+    }
+    .card__button{
+      margin-top: 10px;
+    }
+    .card__price{
+      display: flex;
+      flex-direction: column;
     }
 }
 

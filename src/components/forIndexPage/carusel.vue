@@ -11,9 +11,10 @@ let autoplay = ref(true)
 </script>
 
 <template>
-  <div class="">
+  <div class="q-ma-xl" >
     <q-carousel
       arrows
+      swipeable
       animated
       infinite
       :autoplay="autoplay"
@@ -22,7 +23,8 @@ let autoplay = ref(true)
       @mouseenter="autoplay = false"
       @mouseleave="autoplay = true"
       v-model="slide"
-      
+      class="rounded-borders"
+
     >
       <q-carousel-slide :name="slide.id" :img-src="slide.image_link" v-for="slide in carusel" :key="slide">
         <div class="absolute-bottom custom-caption">
@@ -30,7 +32,7 @@ let autoplay = ref(true)
           <div class="text-subtitle1" v-if="slide.subtitle">{{ slide.subtitle }}</div>
         </div>
       </q-carousel-slide>
-      
+
     </q-carousel>
   </div>
 </template>

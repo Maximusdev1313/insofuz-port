@@ -27,57 +27,58 @@ onMounted(() => {
   <q-page>
     <div>
       <Suspense>
-        <carusel :carusel="caruselData"/>
+        <carusel :carusel="caruselData" class="desktop-only"/>
       </Suspense>
       <div class="title q-ma-md">
         Sizga kerakli
       </div>
-      
+
       <Suspense>
         <cards
         class="desktop-only"
         :products="store.releatedProducts"
         />
-        
+
       </Suspense>
       <Suspense>
+
         <slide
-        class="mobile-only"
-        :products="store.releatedProducts"
+          class="mobile-only rounded-borders"
+          :products="store.releatedProducts"
         />
-        
+
       </Suspense>
       <div class="title q-ma-md">
-        Sabzavotlar
+        Muhim mahsulotlar
       </div>
       <Suspense>
         <cards
-          class="desktop-only"
-          :products="store.productsForMens"
+
+          :products="store.releatedProducts"
         />
       </Suspense>
-      <Suspense>
+      <!-- <Suspense>
         <slide
         class="mobile-only"
           :products="store.productsForMens"
         />
-      </Suspense>
+      </Suspense> -->
       <div class="title q-ma-md">
         Shirinliklar
       </div>
-      <Suspense>
+      <!-- <Suspense>
         <cards
         class="desktop-only"
           :products="store.productsForWomen"
         />
-      </Suspense>
-      <Suspense>
+      </Suspense> -->
+      <!-- <Suspense>
         <slide
         class="mobile-only"
           :products="store.productsForWomen"
         />
-      </Suspense>
-      
+      </Suspense> -->
+
     </div>
   </q-page>
 </template>

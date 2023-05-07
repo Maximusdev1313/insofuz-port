@@ -16,12 +16,16 @@ export const useApiStore = defineStore('store',{
     priceNonDiscount: null,
     priceWithDiscount: null,
     alert: false,
-    done: false
+    done: false,
+    searchInput: '',
+    findItems: null
+
   }),
   getters: {
-    releatedProducts: state => state.allProducts.filter(el => el.is_important == true).splice(0, 4),
-    productsForMens:state=> state.allProducts.filter(el=> el.product == 1681148665171).splice(0, 4),
-    productsForWomen:state=>state.allProducts.filter(el=> el.product == 1681794800687).splice(0, 4),
+    releatedProducts: state => state.allProducts.filter(el => el.is_important == true),
+
+    // productsForMens:state=> state.allProducts.filter(el=> el.product == 1681148665171).splice(0, 4),
+    // productsForWomen:state=>state.allProducts.filter(el=> el.product == 1681794800687).splice(0, 4),
     reversedCategory: state=>state.categories.reverse()
   },
   actions:{
@@ -95,6 +99,9 @@ export const useApiStore = defineStore('store',{
         this.priceWithDiscount = item.quantity * item.price;
 
       }
+    },
+    searchProduct(){
+     this.findItems = this.allProducts.filter(item => item.name.toLowerCase().includes(this.searchInput.toLowerCase()));
     },
     getLocation() {
       if (navigator.geolocation) {

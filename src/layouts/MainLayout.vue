@@ -19,7 +19,7 @@
         </router-link>
 
        <router-link to="/search" class="search-input gt-sm">
-        <q-input v-model="search" filled type="search" class="input_header"  bg-color="purple-3" dark color="white">
+        <q-input v-model="store.searchInput" filled type="search" class="input_header"  bg-color="purple-3" dark color="white">
         <template v-slot:append>
           <q-icon name="search" />
         </template>
@@ -45,18 +45,29 @@
     <q-page-container>
       <router-view />
     </q-page-container>
+    <q-footer bordered class="footer bg-white text-white lt-md">
+      <router-link to="/search" class="search-input ">
+        <q-input v-model="store.searchInput"  rounded outlined  label="Mahsulot qidirish"  type="search" class="input_header  "  bg-color="white"  color="purple">
+        <template v-slot:append>
+          <q-icon name="search" color="grey"/>
+        </template>
+      </q-input>
+       </router-link>
+    </q-footer>
   </q-layout>
 </template>
 
 <script setup>
-import { defineComponent, ref } from 'vue'
+import { defineComponent,  ref, watch } from 'vue'
 import {useApiStore} from 'src/stores'
 import drawerContent from 'src/components/drawerContent.vue'
 const leftDrawerOpen = ref(false)
-const search = ref("")
 const store = useApiStore()
 store.getCategory()
 
+watch(() => store.searchInput, function() {
+      store.searchProduct()
+   });
 function toggleLeftDrawer () {
         leftDrawerOpen.value = !leftDrawerOpen.value
 }
@@ -64,6 +75,9 @@ function toggleLeftDrawer () {
 </script>
 
 <style scoped>
+.footer{
+  height: 80px;
+}
 .link{
   text-decoration: none;
 }
