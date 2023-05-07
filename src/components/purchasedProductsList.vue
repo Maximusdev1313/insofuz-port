@@ -5,7 +5,7 @@ import buttonGroup from "./buttonGroup.vue";
 const store = useApiStore();
 const props = defineProps({
   products: Array,
-  isDisable: Boolean
+  isDisable: Boolean,
 });
 const { products, isDisable } = toRefs(props);
 </script>
@@ -18,73 +18,64 @@ const { products, isDisable } = toRefs(props);
       v-for="(product, index) in products"
       :key="product.id"
     >
-    <div class="wrapper ">
-      <div class="list__img row justify-center items-center" v-if="product ">
-        <img
-          :src="product.images[0].image_link"
-          alt=""
-          width="50"
-          height="50"
-          v-if="product.images "
-        />
-        <img
-          :src="product.image_link"
-          alt=""
-          width="50"
-          height="50"
-          v-else-if="product.image_link"
-        />
-        <q-icon name="image" size="xl" v-else></q-icon>
-
-      </div>
-
-
-      <div class="list__label">{{ product.name }}</div>
-      <div class="list__size" v-if="product.size">
-        {{ product.size }}
-      </div>
-      <div class="list__price" >
-        <div class="list__price_discount text-red" v-if="product.old_price">
-          <del> {{ product.old_price }} So'm </del>
+      <div class="wrapper">
+        <div class="list__img row justify-center items-center" v-if="product">
+          <img
+            :src="product.images[0].image_link"
+            alt=""
+            width="50"
+            height="50"
+            v-if="product.images"
+          />
+          <img
+            :src="product.image_link"
+            alt=""
+            width="50"
+            height="50"
+            v-else-if="product.image_link"
+          />
+          <q-icon name="image" size="xl" v-else></q-icon>
         </div>
-        <div class="list__price_no-discount">{{ product.price }} So'm</div>
+
+        <div class="list__label">{{ product.name }}</div>
+
+        <div class="list__price">
+          <div class="list__price_discount text-red" v-if="product.old_price">
+            <del> {{ product.old_price }} So'm </del>
+          </div>
+          <div class="list__price_no-discount">{{ product.price }} So'm</div>
+        </div>
       </div>
-    </div>
       <div class="wrapper spacer">
-              <div>
-        {{ product.price * product.quantity }} So'm
-      </div>
+        <div>{{ product.price * product.quantity }} So'm</div>
 
-
-      <div
-        v-if="!isDisable"
-        class="list__quantity row justify-between items-center content-center wrap"
-      >
-        <button-group :product="product"/>
+        <div
+          v-if="!isDisable"
+          class="list__quantity row justify-between items-center content-center wrap"
+        >
+          <button-group :product="product" />
+        </div>
+        <div class="button" v-if="!isDisable">
+          <q-icon
+            name="cancel"
+            size="sm"
+            color="red"
+            @click="store.deleteProduct(product, index)"
+          />
+        </div>
+        <div class="ifDisable q-mr-xl" v-else>
+          {{ product.quantity }} {{ product.size }}
+        </div>
       </div>
-      <div class="button" v-if="!isDisable">
-        <q-icon
-          name="cancel"
-          size="sm"
-          color="red"
-          @click="store.deleteProduct(product, index)"
-        />
-      </div>
-      <div class="ifDisable q-mr-xl" v-else>
-        {{ product.quantity }} ta
-      </div>
-      </div>
-
     </div>
   </div>
 </template>
 <style scoped>
-.wrapper{
+.wrapper {
   width: 400px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-
 }
 .list__img {
   width: 50px;
@@ -117,7 +108,7 @@ const { products, isDisable } = toRefs(props);
   cursor: not-allowed;
 }
 @media (max-width: 600px) {
-  .spacer{
+  .spacer {
     margin-top: 40px;
   }
 }

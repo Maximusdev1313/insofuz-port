@@ -1,24 +1,26 @@
 import { store } from 'quasar/wrappers'
 import { createPinia, defineStore } from 'pinia'
 import axios from 'axios'
-export const useApiStore = defineStore('store',{
-  state: ()=>({
+export const useApiStore = defineStore('store', {
+  state: () => ({
     categories: [],
     category: [],
-    limitedCategory:[],
+    limitedCategory: [],
     products: [],
     purchasedProducts: [],
-    allProducts:[],
+    allProducts: [],
     amount: null,
     count: null,
-    userId:null,
+    userId: null,
     userPosition: null,
     priceNonDiscount: null,
     priceWithDiscount: null,
     alert: false,
     done: false,
     searchInput: '',
-    findItems: null
+    findItems: null,
+    prevGramAmount: 0,
+    prevGram: 0
 
   }),
   getters: {
@@ -26,28 +28,28 @@ export const useApiStore = defineStore('store',{
 
     // productsForMens:state=> state.allProducts.filter(el=> el.product == 1681148665171).splice(0, 4),
     // productsForWomen:state=>state.allProducts.filter(el=> el.product == 1681794800687).splice(0, 4),
-    reversedCategory: state=>state.categories.reverse()
+    reversedCategory: state => state.categories.reverse()
   },
-  actions:{
-    async getCategory(){
-      let response = await axios.get('http://insofuzlast.pythonanywhere.com/category/', {mode: 'no-cors'})
+  actions: {
+    async getCategory() {
+      let response = await axios.get('http://insofuzlast.pythonanywhere.com/category/', { mode: 'no-cors' })
       this.categories = response.data
     },
-    async getProducts(id){
+    async getProducts(id) {
       try {
-        let response = await axios.get(`http://insofuzlast.pythonanywhere.com/category/${id}/`, {mode: 'no-cors'})
+        let response = await axios.get(`http://insofuzlast.pythonanywhere.com/category/${id}/`, { mode: 'no-cors' })
         this.category = response.data
         this.products = this.category.product
         console.log(this.products);
 
       } catch (error) {
-          // location.reload()
-          console.log(error);
+        // location.reload()
+        console.log(error);
       }
     },
     async getAllProducts() {
       try {
-        let response = await axios.get(`http://insofuzlast.pythonanywhere.com/product/`, {mode: 'no-cors'})
+        let response = await axios.get(`http://insofuzlast.pythonanywhere.com/product/`, { mode: 'no-cors' })
         this.allProducts = response.data
         console.log(this.allProducts);
       } catch (error) {
@@ -60,13 +62,13 @@ export const useApiStore = defineStore('store',{
       sessionStorage.setItem(storageName, storageId);
       variable.value = storageId;
     },
-    isDone(){
+    isDone() {
       this.done = true
       setTimeout(() => {
         this.done = false
       }, 1000);
     },
-    addPurchasedProducts(el, increment){
+    addPurchasedProducts(el, increment) {
 
       this.purchasedProducts.push(el)
       increment
@@ -83,12 +85,37 @@ export const useApiStore = defineStore('store',{
         item.quantity = 0;
       }
     },
-    incrementAmount(item) {
-      this.amount += Math.round(item.price);
-      item.quantity = item.quantity === '' ? 1 : JSON.parse(item.quantity) + 1;
-      this.priceNonDiscount = item.quantity * item.old_price;
-      this.priceWithDiscount = item.quantity * item.price;
+    incrementAmount(item, gram) {
+      if (gram && item === item) {
+        // Subtract previous gram amount from total
+        this.amount -= this.prevGramAmount;
 
+        // Calculate new gram amount and update total
+        const priceWithGram = item.price * gram;
+        this.amount += priceWithGram;
+        this.prevGram = gram
+        console.log(this.prevGram);
+        // Update previous gram amount
+        this.prevGramAmount = priceWithGram;
+        item.quantity += gram
+        // Update other values
+        this.priceNonDiscount = item.quantity * item.old_price;
+        this.priceWithDiscount = item.quantity * item.price;
+      } else if (gram === 0) {
+        // Subtract previous gram amount from total
+        this.amount -= this.prevGramAmount;
+        item.quantity -= this.prevGram
+        // Reset previous gram amount
+        this.prevGramAmount = 0;
+      }
+      else {
+        this.prevGramAmount = 0
+        this.amount += Number(item.price);
+        console.log(item.price, 'prise', this.amount);
+        item.quantity = item.quantity === '' ? 1 : JSON.parse(item.quantity) + 1;
+        this.priceNonDiscount = item.quantity * item.old_price;
+        this.priceWithDiscount = item.quantity * item.price;
+      }
     },
     decrementAmount(item) {
       const price = JSON.parse(item.price);
@@ -100,8 +127,8 @@ export const useApiStore = defineStore('store',{
 
       }
     },
-    searchProduct(){
-     this.findItems = this.allProducts.filter(item => item.name.toLowerCase().includes(this.searchInput.toLowerCase()));
+    searchProduct() {
+      this.findItems = this.allProducts.filter(item => item.name.toLowerCase().includes(this.searchInput.toLowerCase()));
     },
     getLocation() {
       if (navigator.geolocation) {

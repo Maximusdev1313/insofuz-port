@@ -13,7 +13,10 @@ const { product } = toRefs(props);
 </script>
 
 <template>
-  <div class="card shadow-up-3 q-ma-md  column justify-between items-center" v-if="product">
+  <div
+    class="card shadow-up-3 q-ma-md column justify-between items-center"
+    v-if="product"
+  >
     <div class="discount">
       <div
         v-if="product.discount"
@@ -23,11 +26,17 @@ const { product } = toRefs(props);
         <div class="discount__percent">{{ product.discount }} %</div>
       </div>
     </div>
-    <div class="card__img ">
+    <div class="card__img">
       <p v-if="product.images[0]?.image">rasm</p>
-        <q-img :src="product.images[0]?.image_link" :alt="product.name" class="img" :ratio="4/3" v-else />
+      <q-img
+        :src="product.images[0]?.image_link"
+        :alt="product.name"
+        class="img"
+        :ratio="16 / 9"
+        v-else
+      />
       <!-- <router-link :to="'/product/' + product.id"> -->
-        <!-- <img
+      <!-- <img
           :src="product.images[0]?.image"
           :alt="product.name"
 
@@ -35,7 +44,7 @@ const { product } = toRefs(props);
       <!-- </router-link> -->
       <!-- <div class="card__img_have-not"></div> -->
     </div>
-    <div class="text-subtitle1 q-pa-md text-weight-thin text-uppercase">
+    <div class="title q-pa-sm text-weight-thin text-uppercase">
       {{ product.name }}
     </div>
     <div class="card__price row justify-between text-weight-bold">
@@ -48,22 +57,23 @@ const { product } = toRefs(props);
       class="counter row justify-between items-center"
       v-if="product.quantity > 0"
     >
-      <button-group :product="product"/>
+      <button-group :product="product" />
     </div>
     <div class="counter text-center text-grey" v-else>
-      Buyurtma berilmagan...
+      Buyurtma berilmagan... <br />
+      Buyurtma berish uchun "Sotib olish tugmasini bosing"
     </div>
 
     <div class="card__button">
       <q-btn
-        class="card__button_add full-width q-my-sm"
+        class="card__button_add full-width q-mt-lg q-mb-md"
         icon="shopping_cart"
         color="accent"
+        size="sm"
         @click="
           store.addPurchasedProducts(product, store.incrementAmount(product))
         "
       >
-
         Sotib olish
       </q-btn>
     </div>
@@ -74,15 +84,17 @@ const { product } = toRefs(props);
   width: 250px;
   border-radius: 10px;
   background-color: #ffff;
+  font-size: small;
 }
 .discount {
   width: 90%;
   height: 25px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
-.img, .card__img.img {
- width: 200px;
+.img,
+.card__img.img {
+  width: 200px;
   height: 200px;
   border-radius: 15px;
 }
@@ -92,27 +104,28 @@ const { product } = toRefs(props);
 }
 .card__button {
   width: 90%;
+  margin-top: 20px;
 }
 .counter {
   width: 90%;
   height: 26px;
   margin-top: 16px;
+  font-size: small;
 }
-@media (max-width: 600px){
-    .card{
-      width: 47%;
-      margin: 0;
-    }
-    .img{
-      width: 150px;
-    }
-    .card__button{
-      margin-top: 10px;
-    }
-    .card__price{
-      display: flex;
-      flex-direction: column;
-    }
+@media (max-width: 600px) {
+  .card {
+    width: 47%;
+    margin: 0;
+  }
+  .img {
+    width: 150px;
+  }
+  .card__button {
+    margin-top: 20px;
+  }
+  .card__price {
+    display: flex;
+    flex-direction: row;
+  }
 }
-
 </style>
