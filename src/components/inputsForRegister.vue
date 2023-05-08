@@ -9,31 +9,32 @@ let userName = ref("");
 let phoneNumber = ref("");
 let address = ref("");
 let comment = ref("");
-let userId = ref('')
+let userId = ref("");
 let notChecked = ref(false);
 // set user-id if not in sessionStorage
-userId.value = sessionStorage.getItem('userId')
+userId.value = sessionStorage.getItem("userId");
 let order = async () => {
+  store.setupId(userId, `userId`);
+  userId.value = sessionStorage.getItem("userId");
 
-    store.setupId(userId, `userId`);
-    userId.value  = sessionStorage.getItem('userId')
-
-    try {
-      const response = await axios.post("http://insofuzlast.pythonanywhere.com/user/",{
+  try {
+    const response = await axios.post(
+      "http://insofuzlast.pythonanywhere.com/user/",
+      {
         id: userId.value,
-          userName: userName.value,
-          phoneNumber: phoneNumber.value,
-          address: address.value,
-          // location: store.userPosition,
-          comment: comment.value,
-          total: store.amount,
-      })
+        userName: userName.value,
+        phoneNumber: phoneNumber.value,
+        address: address.value,
+        // location: store.userPosition,
+        comment: comment.value,
+        total: store.amount,
+      }
+    );
 
-      notChecked.value = false;
-    } catch (error) {
-      console.log(error);
-    }
-
+    notChecked.value = false;
+  } catch (error) {
+    console.log(error);
+  }
 };
 console.log(store.purchasedProducts);
 const addProducts = async () => {
@@ -42,7 +43,9 @@ const addProducts = async () => {
       for (let product of store.purchasedProducts) {
         let total = product.price * product.quantity;
 
-        const response = await axios.post('http://insofuzlast.pythonanywhere.com/orders/',{
+        const response = await axios.post(
+          "http://insofuzlast.pythonanywhere.com/orders/",
+          {
             orderForUser: userId.value,
             image_link: product.images[0].image_link,
             name: product.name,
@@ -50,60 +53,80 @@ const addProducts = async () => {
             size: product.size,
             price: product.price,
             total_price: total,
-        })
+          }
+        );
         console.log(response.data);
       }
-
-
     } catch (err) {
       console.log(err);
       // addProducts();
     }
-    sessionStorage.setItem('ordered', true)
+    sessionStorage.setItem("ordered", true);
     router.push({ name: "user", params: { id: userId.value } });
   } else {
     notChecked.value = true;
-
   }
 };
-const patchingProductQuantity = async () =>{
+const patchingProductQuantity = async () => {
   try {
-    for(let product of store.purchasedProducts){
-    const response = await axios.patch(`http://insofuzlast.pythonanywhere.com/product/${product.id}/`,{
-      quantity_in_store: product.quantity_in_store - product.quantity
-    })
-    console.log(response.data, 'pathc');
-
+    for (let product of store.purchasedProducts) {
+      const response = await axios.patch(
+        `http://insofuzlast.pythonanywhere.com/product/${product.id}/`,
+        {
+          quantity_in_store: product.quantity_in_store - product.quantity,
+        }
+      );
+      console.log(response.data, "pathc");
     }
-
   } catch (error) {
     console.log(error);
   }
-}
+};
 console.log(store.purchasedProducts);
-const checkOrders = sessionStorage.getItem('ordered')
+const checkOrders = sessionStorage.getItem("ordered");
 console.log(checkOrders);
-const giveOrder = async ()=>{
-  if(!checkOrders){
-    await order()
-    await patchingProductQuantity()
-
-    await addProducts()
+const giveOrder = async () => {
+  if (!userName.value || !phoneNumber.value) {
+    alert("Iltimos majburiy maydonlarni kiriting!!!");
+    return;
   }
-  else{
-     await patchingProductQuantity()
-    await addProducts()
-  }
-}
+  if (!checkOrders) {
+    await order();
+    await patchingProductQuantity();
 
+    await addProducts();
+  } else {
+    await patchingProductQuantity();
+    await addProducts();
+  }
+};
 </script>
 <template>
   <div class="user-info q-my-xl q-pa-md">
-    <div class="title ">Ma'lumotlaringiz</div>
-    <q-input v-model="userName" type="text" name="fname" label="Ismingiz" />
-    <q-input v-model="phoneNumber" type="tel" name="phone"  mask="(##) ### - ## - ##" label="Raqamingiz" fill-mask />
+    <div class="title">Ma'lumotlaringiz</div>
+    <q-input
+      v-model="userName"
+      type="text"
+      name="fname"
+      label="Ismingiz"
+      :rules="[(val) => !!val || 'Majburiy maydon']"
+    />
+    <q-input
+      v-model="phoneNumber"
+      type="tel"
+      name="phone"
+      mask="(##) ### - ## - ##"
+      label="Raqamingiz"
+      fill-mask
+      :rules="[(val) => !!val || 'Majburiy maydon']"
+    />
     <q-input v-model="address" type="text" name="address" label="Manzilingiz" />
-    <q-input type="textarea" v-model="comment" name="comment" label="Kamentariy berish" />
+    <q-input
+      type="textarea"
+      v-model="comment"
+      name="comment"
+      label="Kamentariy berish"
+    />
     <div class="q-my-md">
       <!-- <q-btn
         @click="order()"
@@ -116,10 +139,7 @@ const giveOrder = async ()=>{
           >Iltimos locatsiyani olish tugmasini bosing</q-tooltip
         >
       </q-btn> -->
-      <q-btn @click="giveOrder()">
-
-        Buyurtma Berish
-      </q-btn>
+      <q-btn @click="giveOrder()"> Buyurtma Berish </q-btn>
     </div>
   </div>
 </template>
