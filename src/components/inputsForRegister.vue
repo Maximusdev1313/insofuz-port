@@ -11,14 +11,39 @@ let address = ref("");
 let comment = ref("");
 let userId = ref("");
 let notChecked = ref(false);
+let userLocation = ref("");
+
+const getUserLocation = () => {
+  return new Promise((resolve, reject) => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          userLocation.value = `https://maps.google.com/maps/place/${position.coords.latitude}+${position.coords.longitude}/@${position.coords.latitude},${position.coords.longitude},16z`;
+          console.log(userLocation.value, "locations");
+          resolve(userLocation.value);
+        },
+        function (error) {
+          console.error(error);
+          reject(error);
+        }
+      );
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+      reject(new Error("Geolocation is not supported by this browser."));
+    }
+  });
+};
 
 // set user-id if not in sessionStorage
 userId.value = sessionStorage.getItem("userId");
 let order = async () => {
+  await getUserLocation();
   store.setupId(userId, `userId`);
   userId.value = sessionStorage.getItem("userId");
+  console.log(userLocation.value, "post ordeer 1 ");
 
   try {
+    console.log(userLocation.value, "post ordeer  ");
     const response = await axios.post(
       "http://insofuzlast.pythonanywhere.com/user/",
       {
@@ -70,6 +95,7 @@ const addProducts = async () => {
 };
 const patchingProductQuantity = async () => {
   try {
+    console.log(userLocation.value, "location other func");
     for (let product of store.purchasedProducts) {
       const response = await axios.patch(
         `http://insofuzlast.pythonanywhere.com/product/${product.id}/`,
@@ -84,25 +110,7 @@ const patchingProductQuantity = async () => {
   }
 };
 console.log(store.purchasedProducts);
-const userLocation = ref();
-const getUserLocation = () => {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      function (position) {
-        console.log(position.coords.latitude, position.coords.longitude);
-        console.log(
-          `https://maps.google.com/maps/place/${position.coords.latitude}+${position.coords.longitude}/@${position.coords.latitude},${position.coords.longitude},16z`
-        );
-        userLocation.value = `https://maps.google.com/maps/place/${position.coords.latitude}+${position.coords.longitude}/@${position.coords.latitude},${position.coords.longitude},16z`;
-      },
-      function (error) {
-        console.error(error);
-      }
-    );
-  } else {
-    console.error("Geolocation is not supported by this browser.");
-  }
-};
+
 const checkOrders = sessionStorage.getItem("ordered");
 console.log(checkOrders);
 const giveOrder = async () => {
@@ -111,13 +119,13 @@ const giveOrder = async () => {
     return;
   }
   if (!checkOrders) {
-    getUserLocation();
+    await getUserLocation();
     await order();
     await patchingProductQuantity();
 
     await addProducts();
   } else {
-    getUserLocation();
+    await getUserLocation();
     await patchingProductQuantity();
     await addProducts();
   }
