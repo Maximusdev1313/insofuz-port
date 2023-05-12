@@ -35,14 +35,6 @@ const { product } = toRefs(props);
         :ratio="16 / 9"
         v-else
       />
-      <!-- <router-link :to="'/product/' + product.id"> -->
-      <!-- <img
-          :src="product.images[0]?.image"
-          :alt="product.name"
-
-        /> -->
-      <!-- </router-link> -->
-      <!-- <div class="card__img_have-not"></div> -->
     </div>
     <div class="title q-pa-sm text-weight-thin text-uppercase">
       {{ product.name }}
@@ -60,13 +52,13 @@ const { product } = toRefs(props);
       <button-group :product="product" />
     </div>
     <div class="counter text-center text-grey" v-else>
-      Buyurtma berilmagan... <br />
-      Buyurtma berish uchun "Sotib olish tugmasini bosing"
+      Buyurtma berilmagan... Buyurtma berish uchun <br />"Sotib olish tugmasini
+      bosing"
     </div>
 
     <div class="card__button">
       <q-btn
-        class="card__button_add full-width q-mt-lg q-mb-md"
+        class="card__button_add full-width q-mt-xl q-mb-sm"
         icon="shopping_cart"
         color="accent"
         size="sm"
@@ -109,7 +101,7 @@ const { product } = toRefs(props);
 .counter {
   width: 90%;
   height: 26px;
-  margin-top: 16px;
+  margin-top: 10px;
   font-size: small;
 }
 @media (max-width: 600px) {
