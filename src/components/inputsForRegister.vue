@@ -11,6 +11,7 @@ let address = ref("");
 let comment = ref("");
 let userId = ref("");
 let notChecked = ref(false);
+
 // set user-id if not in sessionStorage
 userId.value = sessionStorage.getItem("userId");
 let order = async () => {
@@ -25,7 +26,7 @@ let order = async () => {
         userName: userName.value,
         phoneNumber: phoneNumber.value,
         address: address.value,
-        // location: store.userPosition,
+        location: userLocation.value,
         comment: comment.value,
         total: store.amount,
       }
@@ -83,6 +84,25 @@ const patchingProductQuantity = async () => {
   }
 };
 console.log(store.purchasedProducts);
+const userLocation = ref();
+const getUserLocation = () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        console.log(position.coords.latitude, position.coords.longitude);
+        console.log(
+          `https://maps.google.com/maps/place/${position.coords.latitude}+${position.coords.longitude}/@${position.coords.latitude},${position.coords.longitude},16z`
+        );
+        userLocation.value = `https://maps.google.com/maps/place/${position.coords.latitude}+${position.coords.longitude}/@${position.coords.latitude},${position.coords.longitude},16z`;
+      },
+      function (error) {
+        console.error(error);
+      }
+    );
+  } else {
+    console.error("Geolocation is not supported by this browser.");
+  }
+};
 const checkOrders = sessionStorage.getItem("ordered");
 console.log(checkOrders);
 const giveOrder = async () => {
@@ -91,11 +111,13 @@ const giveOrder = async () => {
     return;
   }
   if (!checkOrders) {
+    getUserLocation();
     await order();
     await patchingProductQuantity();
 
     await addProducts();
   } else {
+    getUserLocation();
     await patchingProductQuantity();
     await addProducts();
   }
