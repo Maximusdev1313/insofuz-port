@@ -18,7 +18,7 @@ const getUserLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         function (position) {
-          userLocation.value = `https://maps.google.com/maps/place/${position.coords.latitude}+${position.coords.longitude}/@${position.coords.latitude},${position.coords.longitude},16z`;
+          userLocation.value = `https://maps.google.com/maps/dir/?api=1&destination=${position.coords.latitude},${position.coords.longitude}`;
           console.log(userLocation.value, "locations");
           resolve(userLocation.value);
         },
