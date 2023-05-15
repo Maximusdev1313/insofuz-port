@@ -1,13 +1,18 @@
 <script setup>
-import { toRefs } from 'vue';
-const props = defineProps({
-  questions: Array,
- 
-});
-const { questions } = toRefs(props);
+
 </script>
 <template>
-    <div v-for="q in questions" :key="q">
-        {{ q }}
+<div class="container">
+  <div class="wrapper">
+    <div class="button-group">
+
     </div>
+    <div class="content">
+
+    </div>
+    <div class="delete-button">
+
+    </div>
+  </div>
+</div>
 </template>

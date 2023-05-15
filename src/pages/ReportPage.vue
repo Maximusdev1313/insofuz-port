@@ -19,10 +19,13 @@ const getOrders = async () =>{
 }
 getProducts()
 getOrders()
+import comp from 'src/components/comp.vue'
+
 </script>
 
 <template>
     <q-page>
+        <comp/>
         
         
     </q-page>

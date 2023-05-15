@@ -71,6 +71,9 @@ const { products, isDisable } = toRefs(props);
   </div>
 </template>
 <style scoped>
+.list {
+  background-color: #fff;
+}
 .wrapper {
   width: 400px;
   display: flex;

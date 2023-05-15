@@ -176,6 +176,6 @@ const giveOrder = async () => {
 
 <style scoped>
 .user-info {
-  background-color: aliceblue;
+  background-color: #fff;
 }
 </style>
