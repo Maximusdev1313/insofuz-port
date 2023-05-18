@@ -22,9 +22,9 @@ const clearStorage = () => {
 onMounted(() => {
   store.getProducts(route.params.id);
   // if user come from order page
-  if (userId) {
-    alert1.value = true;
-  }
+  // if (userId) {
+  //   alert1.value = true;
+  // }
 });
 
 watch(

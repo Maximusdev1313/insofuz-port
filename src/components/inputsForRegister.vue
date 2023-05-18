@@ -18,7 +18,7 @@ const getUserLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         function (position) {
-          userLocation.value = `https://maps.google.com/maps/dir/?api=1&destination=${position.coords.latitude},${position.coords.longitude}`;
+          userLocation.value = `https://maps.google.com/maps/dir/${position.coords.latitude},${position.coords.longitude}/@40.318231,71.833045.17z`;
           console.log(userLocation.value, "locations");
           resolve(userLocation.value);
         },
@@ -118,17 +118,17 @@ const giveOrder = async () => {
     alert("Iltimos majburiy maydonlarni kiriting!!!");
     return;
   }
-  if (!checkOrders) {
-    await getUserLocation();
-    await order();
-    await patchingProductQuantity();
+  // if (!checkOrders) {
+  await getUserLocation();
+  await order();
+  await patchingProductQuantity();
 
-    await addProducts();
-  } else {
-    await getUserLocation();
-    await patchingProductQuantity();
-    await addProducts();
-  }
+  await addProducts();
+  // } else {
+  //   await getUserLocation();
+  //   await patchingProductQuantity();
+  //   await addProducts();
+  // // }
 };
 </script>
 <template>
