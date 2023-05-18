@@ -12,13 +12,13 @@ let comment = ref("");
 let userId = ref("");
 let notChecked = ref(false);
 let userLocation = ref("");
-
+// https://www.google.com/maps/dir/40.3249139,71.8255356/40.322472,71.827721/@40.322908,71.8266037,17z/
 const getUserLocation = () => {
   return new Promise((resolve, reject) => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         function (position) {
-          userLocation.value = `https://maps.google.com/maps/dir/${position.coords.latitude},${position.coords.longitude}/@40.318231,71.833045.17z`;
+          userLocation.value = `https://maps.google.com/maps/dir/40.318214,71.833028/${position.coords.latitude},${position.coords.longitude}/@40.318231,71.833045.17z`;
           console.log(userLocation.value, "locations");
           resolve(userLocation.value);
         },
