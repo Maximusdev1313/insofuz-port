@@ -134,31 +134,40 @@ const giveOrder = async () => {
 <template>
   <div class="user-info q-my-xl q-pa-md">
     <div class="title">Ma'lumotlaringiz</div>
-    <q-input
-      v-model="userName"
-      type="text"
-      name="fname"
-      label="Ismingiz"
-      :rules="[(val) => !!val || 'Majburiy maydon']"
-    />
-    <q-input
-      v-model="phoneNumber"
-      type="tel"
-      name="phone"
-      mask="(##) ### - ## - ##"
-      label="Raqamingiz"
-      fill-mask
-      :rules="[(val) => !!val || 'Majburiy maydon']"
-    />
-    <q-input v-model="address" type="text" name="address" label="Manzilingiz" />
-    <q-input
-      type="textarea"
-      v-model="comment"
-      name="comment"
-      label="Kamentariy berish"
-    />
-    <div class="q-my-md">
-      <!-- <q-btn
+    <q-form>
+      <q-input
+        v-model="userName"
+        type="text"
+        name="fname"
+        id="fname"
+        label="Ismingiz"
+        :rules="[(val) => !!val || 'Majburiy maydon']"
+      />
+      <q-input
+        v-model="phoneNumber"
+        type="tel"
+        id="tel"
+        name="phone"
+        mask="(##) ### - ## - ##"
+        label="Raqamingiz"
+        fill-mask
+        :rules="[(val) => !!val || 'Majburiy maydon']"
+      />
+      <q-input
+        v-model="address"
+        type="text"
+        name="address"
+        id="address"
+        label="Manzilingiz"
+      />
+      <q-input
+        type="textarea"
+        v-model="comment"
+        name="comment"
+        label="Kamentariy berish"
+      />
+      <div class="q-my-md">
+        <!-- <q-btn
         @click="order()"
         :color="notChecked == true ? 'red' : 'primary'"
         icon="location_on"
@@ -169,8 +178,9 @@ const giveOrder = async () => {
           >Iltimos locatsiyani olish tugmasini bosing</q-tooltip
         >
       </q-btn> -->
-      <q-btn @click="giveOrder()"> Buyurtma Berish </q-btn>
-    </div>
+        <q-btn @click="giveOrder()" color="accent"> Buyurtma Berish </q-btn>
+      </div>
+    </q-form>
   </div>
 </template>
 

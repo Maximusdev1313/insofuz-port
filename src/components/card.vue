@@ -13,10 +13,7 @@ const { product } = toRefs(props);
 </script>
 
 <template>
-  <div
-    class="card shadow-up-3 q-ma-md column justify-between items-center"
-    v-if="product"
-  >
+  <div class="card q-ma-md column justify-between items-center" v-if="product">
     <div class="discount">
       <div
         v-if="product.discount"

@@ -141,6 +141,16 @@ export const useApiStore = defineStore('store', {
       } else {
         console.log('error');
       }
+    },
+    // removes older product from user orders
+    clearOlderProducts() {
+      this.purchasedProducts.splice(0, this.purchasedProducts.length);
+      this.amount = null;
+    },
+    // removed user-id and reload page
+    clearStorage() {
+      sessionStorage.removeItem("ordered");
+      this.clearOlderProducts();
     }
 
 

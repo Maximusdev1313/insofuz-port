@@ -8,17 +8,6 @@ let route = useRoute();
 let alert1 = ref(false);
 let userId = sessionStorage.getItem("userId");
 
-// removes older product from user orders
-const clearOlderProducts = () => {
-  store.purchasedProducts.splice(0, store.purchasedProducts.length);
-  store.amount = null;
-};
-// removed user-id and reload page
-const clearStorage = () => {
-  sessionStorage.removeItem("ordered");
-  clearOlderProducts();
-  alert1.value = false;
-};
 onMounted(() => {
   store.getProducts(route.params.id);
   // if user come from order page

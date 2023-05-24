@@ -54,7 +54,12 @@
     <q-page-container>
       <router-view />
     </q-page-container>
-    <q-footer bordered class="footer bg-white text-white lt-md">
+
+    <q-footer
+      bordered
+      class="footer bg-white text-white lt-md"
+      v-if="path !== '/order'"
+    >
       <router-link to="/search" class="search-input">
         <q-input
           v-model="store.searchInput"
@@ -76,9 +81,18 @@
 </template>
 
 <script setup>
-import { defineComponent, ref, watch } from "vue";
+import { defineComponent, ref, watch, computed } from "vue";
 import { useApiStore } from "src/stores";
+import { useRoute } from "vue-router";
 import drawerContent from "src/components/drawerContent.vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const route = useRoute();
+
+const path = computed(() => route.path);
+console.log(path.value);
 const leftDrawerOpen = ref(false);
 const store = useApiStore();
 store.getCategory();
@@ -87,6 +101,30 @@ watch(
   () => store.searchInput,
   function () {
     store.searchProduct();
+  }
+);
+watch(
+  () => path.value,
+  function () {
+    // console.log(path.value);
+  }
+);
+const getRouteHistory = () => {
+  const routeHistory = router.options.history.state.back;
+
+  console.log(routeHistory, "history");
+  let firstWord = routeHistory.split("/")[1];
+  if (firstWord === "user") {
+    store.clearStorage();
+  }
+  console.log(firstWord, "spliteed");
+};
+watch(
+  () => path.value,
+  function () {
+    // console.log(routeHistory);
+    getRouteHistory();
+    //
   }
 );
 function toggleLeftDrawer() {
