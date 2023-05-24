@@ -37,7 +37,12 @@
             </q-input>
           </router-link>
 
-          <q-btn icon="shopping_cart" to="/order" class="text-white">
+          <q-btn
+            icon="shopping_cart"
+            to="/order"
+            class="text-white"
+            v-if="store.purchasedProducts.length"
+          >
             <q-badge color="red" floating>{{
               store.purchasedProducts.length
             }}</q-badge>
@@ -92,7 +97,6 @@ const router = useRouter();
 const route = useRoute();
 
 const path = computed(() => route.path);
-console.log(path.value);
 const leftDrawerOpen = ref(false);
 const store = useApiStore();
 store.getCategory();
@@ -105,26 +109,20 @@ watch(
 );
 watch(
   () => path.value,
-  function () {
-    // console.log(path.value);
-  }
+  function () {}
 );
 const getRouteHistory = () => {
   const routeHistory = router.options.history.state.back;
 
-  console.log(routeHistory, "history");
   let firstWord = routeHistory.split("/")[1];
   if (firstWord === "user") {
     store.clearStorage();
   }
-  console.log(firstWord, "spliteed");
 };
 watch(
   () => path.value,
   function () {
-    // console.log(routeHistory);
     getRouteHistory();
-    //
   }
 );
 function toggleLeftDrawer() {

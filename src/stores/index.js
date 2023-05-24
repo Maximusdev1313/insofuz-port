@@ -40,21 +40,19 @@ export const useApiStore = defineStore('store', {
         let response = await axios.get(`http://insofuzlast.pythonanywhere.com/category/${id}/`, { mode: 'no-cors' })
         this.category = response.data
         this.products = this.category.product
-        console.log(this.products);
 
       } catch (error) {
         // location.reload()
-        console.log(error);
+        console.log('Mahsulotni olib bo\'lmadi');
       }
     },
     async getAllProducts() {
       try {
         let response = await axios.get(`http://insofuzlast.pythonanywhere.com/product/`, { mode: 'no-cors' })
         this.allProducts = response.data
-        console.log(this.allProducts);
       } catch (error) {
         // location.reload()
-        console.log(error);
+        console.log('Mahsulotlarno olib bo\'lmadi');
       }
     },
     setupId(variable, storageName) {
@@ -73,7 +71,6 @@ export const useApiStore = defineStore('store', {
       this.purchasedProducts.push(el)
       increment
       this.purchasedProducts = [...new Set(this.purchasedProducts)]
-      console.log(this.purchasedProducts);
     },
     deleteProduct(item, index) {
       const price = JSON.parse(item.price);
@@ -90,12 +87,10 @@ export const useApiStore = defineStore('store', {
         // Subtract previous gram amount from total
         this.amount -= this.prevGramAmount;
         item.quantity -= this.prevGram
-        console.log(this.prevGram);
         // Calculate new gram amount and update total
         const priceWithGram = item.price * gram;
         this.amount += priceWithGram;
         this.prevGram = gram
-        console.log(this.prevGram);
         // Update previous gram amount
 
         this.prevGramAmount = priceWithGram;
@@ -113,7 +108,6 @@ export const useApiStore = defineStore('store', {
       else {
         this.prevGramAmount = 0
         this.amount += Number(item.price);
-        console.log(item.price, 'prise', this.amount);
         item.quantity = item.quantity === '' ? 1 : JSON.parse(item.quantity) + 1;
         this.priceNonDiscount = item.quantity * item.old_price;
         this.priceWithDiscount = item.quantity * item.price;
@@ -139,7 +133,7 @@ export const useApiStore = defineStore('store', {
           this.userPosition = `${latitude},${longitude}`;
         });
       } else {
-        console.log('error');
+        console.log('Locatsiyani olib bo\'lmadi');
       }
     },
     // removes older product from user orders

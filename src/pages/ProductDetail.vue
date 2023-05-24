@@ -11,13 +11,12 @@ let size = ref("xs");
 let getProduct = async (id) => {
   try {
     let response = await axios.get(
-      `http://insofuzlast.pythonanywhere.com/product/${id}/` 
+      `http://insofuzlast.pythonanywhere.com/product/${id}/`
     );
     simpleProduct.value = response.data;
-    console.log(simpleProduct.value);
   } catch (error) {
     // location.reload()
-    console.log(error);
+    console.log("xatolik");
   }
 };
 onMounted(() => {
@@ -91,19 +90,22 @@ watch(
           />
         </div>
         <div class="order">
-          <div class="order__prices text-subtitle1" >
+          <div class="order__prices text-subtitle1">
             <div v-if="store.priceWithDiscount">
-              <span class="order__price_non-discount text-grey" v-if="store.priceNonDiscount">
-              <del>
-                {{ store.priceNonDiscount }} So'm
-              </del>
-            </span>
-            &bull;
-            <span class="order__price_with-discount text-red " v-if="store.priceWithDiscount">
-              {{ store.priceWithDiscount }} So'm
-            </span>
+              <span
+                class="order__price_non-discount text-grey"
+                v-if="store.priceNonDiscount"
+              >
+                <del> {{ store.priceNonDiscount }} So'm </del>
+              </span>
+              &bull;
+              <span
+                class="order__price_with-discount text-red"
+                v-if="store.priceWithDiscount"
+              >
+                {{ store.priceWithDiscount }} So'm
+              </span>
             </div>
-            
           </div>
           <div
             class="list__quantity row justify-between items-center content-center wrap"
@@ -189,11 +191,10 @@ watch(
   width: 200px;
   text-align: center;
 }
-.order__prices{
+.order__prices {
   height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 </style>

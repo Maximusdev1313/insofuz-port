@@ -1,16 +1,15 @@
 <script setup>
-import {useApiStore} from 'src/stores'
-import { onMounted } from 'vue'
-let store = useApiStore()
-onMounted(()=>{
-    store.getCategory()
-    console.log(store.categories);
-})
+import { useApiStore } from "src/stores";
+import { onMounted } from "vue";
+let store = useApiStore();
+onMounted(() => {
+  store.getCategory();
+});
 </script>
 <template>
-    <div>
-        <q-list padding>
-          <q-item-label header>Barcha mahsulotlar</q-item-label>
+  <div>
+    <q-list padding>
+      <q-item-label header>Barcha mahsulotlar</q-item-label>
       <q-item
         clickable
         v-ripple
@@ -35,5 +34,5 @@ onMounted(()=>{
       <q-btn  to="admin/"  color="primary">register</q-btn>
 
     </div> -->
-    </div>
+  </div>
 </template>

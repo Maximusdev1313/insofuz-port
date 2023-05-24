@@ -1,17 +1,17 @@
 <script setup>
-import {ref} from 'vue'
-import {toRefs} from 'vue'
+import { ref } from "vue";
+import { toRefs } from "vue";
 
 const props = defineProps({
   carusel: Array,
 });
 const { carusel } = toRefs(props);
-let slide = ref('first')
-let autoplay = ref(true)
+let slide = ref("first");
+let autoplay = ref(true);
 </script>
 
 <template>
-  <div class="q-ma-xl" >
+  <div class="carusel q-ma-xl">
     <q-carousel
       arrows
       swipeable
@@ -24,19 +24,26 @@ let autoplay = ref(true)
       @mouseleave="autoplay = true"
       v-model="slide"
       class="rounded-borders"
-
     >
-      <q-carousel-slide :name="slide.id" :img-src="slide.image_link" v-for="slide in carusel" :key="slide">
+      <q-carousel-slide
+        :name="slide.id"
+        :img-src="slide.image_link"
+        v-for="slide in carusel"
+        :key="slide"
+      >
         <div class="absolute-bottom custom-caption">
           <div class="text-h2" v-if="slide.title">{{ slide.title }}</div>
-          <div class="text-subtitle1" v-if="slide.subtitle">{{ slide.subtitle }}</div>
+          <div class="text-subtitle1" v-if="slide.subtitle">
+            {{ slide.subtitle }}
+          </div>
         </div>
       </q-carousel-slide>
-
     </q-carousel>
   </div>
 </template>
 <style lang="sass" scoped>
+.carusel
+  margin: 0
 .custom-caption
   text-align: center
   padding: 12px

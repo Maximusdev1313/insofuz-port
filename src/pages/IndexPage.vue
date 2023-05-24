@@ -7,7 +7,6 @@ import { onBeforeMount, onMounted, ref } from "vue";
 import dialogForReports from "src/components/dialogForReports.vue";
 
 const store = useApiStore();
-
 // data for carusel
 const caruselData = [
   {
@@ -42,19 +41,19 @@ onMounted(() => {
   <q-page>
     <div>
       <Suspense>
-        <carusel :carusel="caruselData" class="desktop-only" />
+        <carusel :carusel="caruselData" />
       </Suspense>
       <div class="title q-ma-md">Sizga kerakli</div>
 
       <Suspense>
-        <cards class="desktop-only" :products="store.releatedProducts" />
+        <cards class="" :products="store.releatedProducts" />
       </Suspense>
-      <Suspense>
+      <!-- <Suspense>
         <slide
           class="mobile-only rounded-borders"
           :products="store.releatedProducts"
         />
-      </Suspense>
+      </Suspense> -->
       <div class="title q-ma-md">Muhim mahsulotlar</div>
       <Suspense>
         <cards :products="store.releatedProducts" />

@@ -19,7 +19,6 @@ const getUserLocation = () => {
       navigator.geolocation.getCurrentPosition(
         function (position) {
           userLocation.value = `https://maps.google.com/maps/dir/40.318214,71.833028/${position.coords.latitude},${position.coords.longitude}/@40.318231,71.833045.17z`;
-          console.log(userLocation.value, "locations");
           resolve(userLocation.value);
         },
         function (error) {
@@ -40,10 +39,8 @@ let order = async () => {
   await getUserLocation();
   store.setupId(userId, `userId`);
   userId.value = sessionStorage.getItem("userId");
-  console.log(userLocation.value, "post ordeer 1 ");
 
   try {
-    console.log(userLocation.value, "post ordeer  ");
     const response = await axios.post(
       "http://insofuzlast.pythonanywhere.com/user/",
       {
@@ -59,10 +56,12 @@ let order = async () => {
 
     notChecked.value = false;
   } catch (error) {
-    console.log(error);
+    console.log("Foydalanuvchi malumotlari yuborilmadi");
+    alert(
+      "Foydalanuvchi malumotlari yuborilmadi Iltimos qayta buyurtma bering"
+    );
   }
 };
-console.log(store.purchasedProducts);
 const addProducts = async () => {
   if (userId.value) {
     try {
@@ -81,21 +80,22 @@ const addProducts = async () => {
             total_price: total,
           }
         );
-        console.log(response.data);
       }
+      router.push({ name: "user", params: { id: userId.value } });
     } catch (err) {
-      console.log(err);
+      console.log("Xatolik, mahsulotlarni yuborib bo'lmadi");
+      alert(
+        "Xatolik, mahsulotlarni yuborib bo'lmadi! \n Iltimos aloqani tekshirib qayta urunib ko'ring yoki biz bilan bog'laning"
+      );
       // addProducts();
     }
     sessionStorage.setItem("ordered", true);
-    router.push({ name: "user", params: { id: userId.value } });
   } else {
     notChecked.value = true;
   }
 };
 const patchingProductQuantity = async () => {
   try {
-    console.log(userLocation.value, "location other func");
     for (let product of store.purchasedProducts) {
       const response = await axios.patch(
         `http://insofuzlast.pythonanywhere.com/product/${product.id}/`,
@@ -103,16 +103,13 @@ const patchingProductQuantity = async () => {
           quantity_in_store: product.quantity_in_store - product.quantity,
         }
       );
-      console.log(response.data, "pathc");
     }
   } catch (error) {
-    console.log(error);
+    console.log("Xatolik");
   }
 };
-console.log(store.purchasedProducts);
 
 const checkOrders = sessionStorage.getItem("ordered");
-console.log(checkOrders);
 const giveOrder = async () => {
   if (!userName.value || !phoneNumber.value) {
     alert("Iltimos majburiy maydonlarni kiriting!!!");

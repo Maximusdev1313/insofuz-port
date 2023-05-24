@@ -34,7 +34,7 @@ let getUserData = async (id) => {
     // console.log(status.value, "user");
   } catch (error) {
     // location.reload()
-    console.log(error);
+    console.log("Xatolik, foydalanuvchi malumotlari yoq");
   }
 };
 let img = ref();
