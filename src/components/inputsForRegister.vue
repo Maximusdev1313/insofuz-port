@@ -53,8 +53,6 @@ let order = async () => {
         total: store.amount,
       }
     );
-
-    notChecked.value = false;
   } catch (error) {
     console.log("Foydalanuvchi malumotlari yuborilmadi");
     alert(
@@ -91,7 +89,6 @@ const addProducts = async () => {
     }
     sessionStorage.setItem("ordered", true);
   } else {
-    notChecked.value = true;
   }
 };
 const patchingProductQuantity = async () => {
@@ -115,12 +112,16 @@ const giveOrder = async () => {
     alert("Iltimos majburiy maydonlarni kiriting!!!");
     return;
   }
+  notChecked.value = true;
+
   // if (!checkOrders) {
   await getUserLocation();
   await order();
   await patchingProductQuantity();
 
   await addProducts();
+  notChecked.value = false;
+
   // } else {
   //   await getUserLocation();
   //   await patchingProductQuantity();
@@ -175,7 +176,9 @@ const giveOrder = async () => {
           >Iltimos locatsiyani olish tugmasini bosing</q-tooltip
         >
       </q-btn> -->
-        <q-btn @click="giveOrder()" color="accent"> Buyurtma Berish </q-btn>
+        <q-btn @click="giveOrder()" color="accent" :loading="notChecked">
+          Buyurtma Berish
+        </q-btn>
       </div>
     </q-form>
   </div>
