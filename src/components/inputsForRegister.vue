@@ -29,6 +29,7 @@ const getUserLocation = () => {
     } else {
       console.error("Geolocation is not supported by this browser.");
       reject(new Error("Geolocation is not supported by this browser."));
+      return;
     }
   });
 };

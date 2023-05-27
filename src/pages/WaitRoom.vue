@@ -52,17 +52,17 @@ onMounted(() => {
       Buyurtmangiz
     </div>
     <card-for-status
-      :img="'../../src/assets/wait.gif'"
+      :img="'/src/assets/wait.gif'"
       :title="'Buyurtmangiz kutish rejimida'"
       v-if="!status"
     />
     <card-for-status
-      :img="'../../src/assets/packing.gif'"
+      :img="'/src/assets/packing.gif'"
       :title="'Qadoqlanmoqda'"
       v-if="status == ''"
     />
     <card-for-status
-      :img="'../../src/assets/route.gif'"
+      :img="'/src/assets/route.gif'"
       :title="'Yetkazib berilmoqda'"
     />
     <!-- <google-maps/> -->
