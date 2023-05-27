@@ -47,7 +47,7 @@ const { products, isDisable } = toRefs(props);
         </div>
       </div>
       <div class="wrapper spacer">
-        <div>{{ product.price * product.quantity }} So'm</div>
+        <div>{{ Math.floor(product.price * product.quantity) }} So'm</div>
 
         <div
           v-if="!isDisable"
