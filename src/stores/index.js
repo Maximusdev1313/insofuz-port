@@ -86,11 +86,12 @@ export const useApiStore = defineStore('store', {
       if (gram && item === item) {
         // Subtract previous gram amount from total
         this.amount -= this.prevGramAmount;
-        item.quantity -= this.prevGram
+        item.quantity = Math.floor(item.quantity)
         // Calculate new gram amount and update total
         const priceWithGram = item.price * gram;
         this.amount += priceWithGram;
         this.prevGram = gram
+        // console.log(gram);
         // Update previous gram amount
 
         this.prevGramAmount = priceWithGram;
