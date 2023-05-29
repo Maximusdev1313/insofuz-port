@@ -107,16 +107,18 @@ watch(
     store.searchProduct();
   }
 );
-watch(
-  () => path.value,
-  function () {}
-);
+// watch(
+//   () => path.value,
+//   function () {}
+// );
 const getRouteHistory = () => {
   const routeHistory = router.options.history.state.back;
 
-  let firstWord = routeHistory.split("/")[1];
-  if (firstWord === "user") {
-    store.clearStorage();
+  if (routeHistory) {
+    let firstWord = routeHistory.split("/")[1];
+    if (firstWord === "user") {
+      store.clearStorage();
+    }
   }
 };
 watch(

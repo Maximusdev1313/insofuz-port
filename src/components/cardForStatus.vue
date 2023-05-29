@@ -17,10 +17,10 @@ const { img, title } = toRefs(props);
     <div class="card shadow-1">
       <div class="card__status text-subtitle2 q-ma-md"></div>
       <div class="card__image">
-        <img :src="img" alt="packing" width="200" />
+        <q-icon :name="img" size="xl" color="grey" />
       </div>
       <div class="title">
-        <h1 class="text-h5 q-my-md">{{ title }}</h1>
+        <h1 class="text-subtitle1 q-my-md">{{ title }}</h1>
       </div>
       <div class="card__alert text-negative q-ma-md">
         Iltimos sahifani tark etmang!

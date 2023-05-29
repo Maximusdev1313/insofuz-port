@@ -12,6 +12,11 @@ let comment = ref("");
 let userId = ref("");
 let notChecked = ref(false);
 let userLocation = ref("");
+const options = {
+  enableHighAccuracy: false,
+  timeout: 5000,
+  maximumAge: 0,
+};
 // https://www.google.com/maps/dir/40.3249139,71.8255356/40.322472,71.827721/@40.322908,71.8266037,17z/
 const getUserLocation = () => {
   return new Promise((resolve, reject) => {
@@ -24,7 +29,8 @@ const getUserLocation = () => {
         function (error) {
           console.error(error);
           reject(error);
-        }
+        },
+        options
       );
     } else {
       console.error("Geolocation is not supported by this browser.");
@@ -116,7 +122,7 @@ const giveOrder = async () => {
   notChecked.value = true;
 
   // if (!checkOrders) {
-  await getUserLocation();
+  // await getUserLocation();
   await order();
   await patchingProductQuantity();
 

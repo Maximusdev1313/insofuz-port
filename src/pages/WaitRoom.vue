@@ -52,18 +52,19 @@ onMounted(() => {
       Buyurtmangiz
     </div>
     <card-for-status
-      :img="'https://insofuzdemo.netlify.app/src/assets/wait.gif'"
+      :img="'hourglass_top'"
       :title="'Buyurtmangiz kutish rejimida'"
       v-if="!status"
     />
     <card-for-status
-      :img="'https://insofuzdemo.netlify.app/src/assets/packing.gif'"
+      :img="'deployed_code_history'"
       :title="'Qadoqlanmoqda'"
-      v-if="status == ''"
+      v-if="status == 'packaging'"
     />
     <card-for-status
-      :img="'https://insofuzdemo.netlify.app/src/assets/route.gif'"
+      :img="'local_shipping'"
       :title="'Yetkazib berilmoqda'"
+      v-if="status == 'deliver'"
     />
     <!-- <google-maps/> -->
     <purchased-products-list :products="products" :isDisable="true" />

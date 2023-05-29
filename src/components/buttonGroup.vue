@@ -38,7 +38,8 @@ const gramms = [
       @click="store.incrementAmount(product)"
     />
     <div class="item-count">
-      {{ product.quantity }} {{ product.size == "Kg" ? "kg" : "Dona" }}
+      {{ product.quantity }}
+      {{ product.size == "Kg" ? "kg" : "Dona" }}
     </div>
 
     <q-btn
