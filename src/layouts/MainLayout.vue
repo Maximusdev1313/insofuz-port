@@ -13,9 +13,9 @@
         />
         <div class="fit row justify-between items-center content-center">
           <router-link to="/" class="link q-ma-md">
-            <q-toolbar-title class="text-white text-weight-bold q-ml-md">
-              <span>VALUE</span>
-              <span class="logo">CART</span>
+            <q-toolbar-title class="text-white text-weight-bold">
+              <!-- <span>VALUE</span> -->
+              <!-- <span class="logo">CART</span> -->
             </q-toolbar-title>
             <!-- <img src="icons/logo-white.png" alt="Logo" class="logo" /> -->
           </router-link>
@@ -62,6 +62,7 @@
 
     <q-footer
       bordered
+      reveal
       class="footer bg-white text-white lt-md"
       v-if="path !== '/order'"
     >
