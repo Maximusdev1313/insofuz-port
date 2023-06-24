@@ -11,8 +11,7 @@ store.getProducts(route.params.id);
 
 watch(
   () => route.params.id,
-  (route) =>
-    (route = store.getProducts(route))
+  (route) => (route = store.getProducts(route))
 );
 
 let options = ["Erkaklar", "Ayollar"];
@@ -27,7 +26,6 @@ let discountPercent = ref("");
 let imgBtn = ref(false);
 let productId = ref("");
 
-
 const getDiscountPercent = () => {
   if (oldPrice.value) {
     const percent = ((oldPrice.value - price.value) / oldPrice.value) * 100;
@@ -35,8 +33,8 @@ const getDiscountPercent = () => {
     console.log(discountPercent.value);
   }
 };
-let urlForProducts = "http://insofuzlast.pythonanywhere.com/product/";
-let urlForImages = "http://insofuzlast.pythonanywhere.com/product-images/";
+let urlForProducts = "http://razzoquz.pythonanywhere.com/product/";
+let urlForImages = "http://razzoquz.pythonanywhere.com/product-images/";
 const postProducts = async () => {
   getDiscountPercent();
   store.setupId(productId, "productId");

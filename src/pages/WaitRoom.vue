@@ -24,7 +24,7 @@ let status = ref("");
 let getUserData = async (id) => {
   try {
     const response = await axios.get(
-      `http://insofuzlast.pythonanywhere.com/user/${id}/`
+      `http://razzoquz.pythonanywhere.com/user/${id}/`
     );
     user.value = response.data;
     status.value = user.value.ready;

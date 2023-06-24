@@ -14,6 +14,7 @@ const item = ref("gramm");
 const onItemClick = (event) => {
   store.incrementAmount(product.value, event.size);
   item.value = event.name;
+  event.size == 0 ? item.value = 'gramm' : event.name
 };
 const gramms = [
   { size: 0, name: "Grammni olib tashlash" },

@@ -11,7 +11,7 @@ let size = ref("xs");
 let getProduct = async (id) => {
   try {
     let response = await axios.get(
-      `http://insofuzlast.pythonanywhere.com/product/${id}/`
+      `http://razzoquz.pythonanywhere.com/product/${id}/`
     );
     simpleProduct.value = response.data;
   } catch (error) {

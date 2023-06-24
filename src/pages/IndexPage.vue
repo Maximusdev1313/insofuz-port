@@ -33,9 +33,7 @@ const store = useApiStore();
 const image = ref("");
 const getImage = async () => {
   try {
-    const res = await axios.get(
-      "http://insofuzlast.pythonanywhere.com/files/2/"
-    );
+    const res = await axios.get("http://razzoquz.pythonanywhere.com/files/2/");
     console.log(res.data);
     image.value = res.data;
   } catch (error) {

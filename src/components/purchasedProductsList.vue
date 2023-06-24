@@ -20,13 +20,15 @@ const { products, isDisable } = toRefs(props);
     >
       <div class="wrapper">
         <div class="list__img row justify-center items-center" v-if="product">
-          <img
-            :src="product.images[0].image_link"
-            alt=""
-            width="50"
-            height="50"
-            v-if="product.images"
-          />
+          <div v-if="product.images">
+            <img
+              :src="product.images[0]?.image_link"
+              alt=""
+              width="50"
+              height="50"
+            />
+          </div>
+
           <img
             :src="product.image_link"
             alt=""

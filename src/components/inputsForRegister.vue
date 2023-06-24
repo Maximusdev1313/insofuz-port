@@ -49,9 +49,10 @@ let order = async () => {
 
   try {
     const response = await axios.post(
-      "http://insofuzlast.pythonanywhere.com/user/",
+      "http://razzoquz.pythonanywhere.com/user/",
       {
         id: userId.value,
+        user: 1, // vaqtinchalik avvalni belgilab beradi
         userName: userName.value,
         phoneNumber: phoneNumber.value,
         address: address.value,
@@ -74,7 +75,7 @@ const addProducts = async () => {
         let total = product.price * product.quantity;
 
         const response = await axios.post(
-          "http://insofuzlast.pythonanywhere.com/orders/",
+          "http://razzoquz.pythonanywhere.com/orders/",
           {
             orderForUser: userId.value,
             image_link: product.images[0].image_link,
@@ -82,6 +83,7 @@ const addProducts = async () => {
             quantity: product.quantity,
             size: product.size,
             price: product.price,
+            entry_price: product.entry_price,
             total_price: total,
           }
         );
@@ -89,6 +91,7 @@ const addProducts = async () => {
       router.push({ name: "user", params: { id: userId.value } });
     } catch (err) {
       console.log("Xatolik, mahsulotlarni yuborib bo'lmadi");
+      console.log(err);
       alert(
         "Xatolik, mahsulotlarni yuborib bo'lmadi! \n Iltimos aloqani tekshirib qayta urunib ko'ring yoki biz bilan bog'laning"
       );
@@ -102,7 +105,7 @@ const patchingProductQuantity = async () => {
   try {
     for (let product of store.purchasedProducts) {
       const response = await axios.patch(
-        `http://insofuzlast.pythonanywhere.com/product/${product.id}/`,
+        `http://razzoquz.pythonanywhere.com/product/${product.id}/`,
         {
           quantity_in_store: product.quantity_in_store - product.quantity,
         }

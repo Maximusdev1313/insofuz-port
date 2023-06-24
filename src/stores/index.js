@@ -32,12 +32,13 @@ export const useApiStore = defineStore('store', {
   },
   actions: {
     async getCategory() {
-      let response = await axios.get('http://insofuzlast.pythonanywhere.com/category/', { mode: 'no-cors' })
+      let response = await axios.get('http://razzoquz.pythonanywhere.com/category/', { mode: 'no-cors' })
       this.categories = response.data
+      console.log(this.categories);
     },
     async getProducts(id) {
       try {
-        let response = await axios.get(`http://insofuzlast.pythonanywhere.com/category/${id}/`, { mode: 'no-cors' })
+        let response = await axios.get(`http://razzoquz.pythonanywhere.com/category/${id}/`, { mode: 'no-cors' })
         this.category = response.data
         this.products = this.category.product
 
@@ -48,7 +49,7 @@ export const useApiStore = defineStore('store', {
     },
     async getAllProducts() {
       try {
-        let response = await axios.get(`http://insofuzlast.pythonanywhere.com/product/`, { mode: 'no-cors' })
+        let response = await axios.get(`http://razzoquz.pythonanywhere.com//product/`, { mode: 'no-cors' })
         this.allProducts = response.data
       } catch (error) {
         // location.reload()
@@ -93,7 +94,7 @@ export const useApiStore = defineStore('store', {
         // Calculate new gram amount and update total
         const priceWithGram = item.price * gram;
         this.amount += priceWithGram;
-        // this.prevGram = gram
+        this.prevGram = gram
         console.log(gram, priceWithGram, 'pr');
         // Update previous gram amount
 
@@ -102,12 +103,14 @@ export const useApiStore = defineStore('store', {
         // Update other values
         this.priceNonDiscount = item.quantity * item.old_price;
         this.priceWithDiscount = item.quantity * item.price;
-      } else if (gram === 0) {
+      }
+      else if (gram === 0) {
         // Subtract previous gram amount from total
-        this.amount -= this.prevGramAmount;
-        item.quantity -= this.prevGram
-        // Reset previous gram amount
-        this.prevGramAmount = 0;
+        let decimalPart = item.quantity - Math.floor(item.quantity);
+        console.log(decimalPart, 'dec');
+        item.quantity = item.quantity - decimalPart
+
+        this.amount -= decimalPart * item.price
       }
       else {
         this.prevGramAmount = 0

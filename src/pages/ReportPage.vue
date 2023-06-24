@@ -8,14 +8,12 @@ const ordersLength = ref();
 const users = ref();
 const getProducts = async () => {
   const Response = await axios.get(
-    "http://insofuzlast.pythonanywhere.com/product/"
+    "http://razzoquz.pythonanywhere.com/product/"
   );
   console.log(Response.data);
 };
 const getOrders = async () => {
-  const Response = await axios.get(
-    "http://insofuzlast.pythonanywhere.com/user/"
-  );
+  const Response = await axios.get("http://razzoquz.pythonanywhere.com/user/");
   const Api = Response.data;
   ordersLength.value = Api.length;
   users.value = Api;
