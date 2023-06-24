@@ -31,7 +31,7 @@ let getUserData = async (id) => {
     products.value = user.value.orderForUser;
 
     // userInfo.value = [...simpleCategory]
-    // console.log(status.value, "user");
+    console.log(user.value, "user");
   } catch (error) {
     // location.reload()
     console.log("Xatolik, foydalanuvchi malumotlari yoq");
@@ -54,17 +54,18 @@ onMounted(() => {
     <card-for-status
       :img="'hourglass_top'"
       :title="'Buyurtmangiz kutish rejimida'"
-      v-if="!status"
+      v-if="!status && status == 'packed'"
     />
     <card-for-status
-      :img="'deployed_code_history'"
+      :img="'inventory_2'"
       :title="'Qadoqlanmoqda'"
-      v-if="status == 'packaging'"
+      v-else-if="status == 'packaging'"
     />
+
     <card-for-status
       :img="'local_shipping'"
       :title="'Yetkazib berilmoqda'"
-      v-if="status == 'deliver'"
+      v-else
     />
     <!-- <google-maps/> -->
     <purchased-products-list :products="products" :isDisable="true" />
